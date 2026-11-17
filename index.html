@@ -31,10 +31,11 @@ a{color:#185640}a:hover{color:#0F3A2B}
 .ph{background-color:#185640;background-image:radial-gradient(rgba(255,183,27,.22) 1px,transparent 1.4px);background-size:7px 7px}
 .ph-deep{background-color:#0F3A2B;background-image:radial-gradient(rgba(244,238,223,.10) 1px,transparent 1.4px);background-size:7px 7px}
 .ph-gold{background-color:#FFB71B;background-image:radial-gradient(rgba(24,86,64,.20) 1px,transparent 1.4px);background-size:7px 7px}
-.hero-photo{background:#185640 url(/assets/greenseattle-web.jpg) center 40%/cover no-repeat}
+.hero-photo{background:#185640 url(/assets/greenseattle-web.jpg) center 27%/cover no-repeat}
 .btn-gold:hover{background:#FFC94D}
 .site{container-type:inline-size}
 .latest-row::-webkit-scrollbar{display:none}
+.latest-row > .loop-clone{display:none!important}
 .mh-actions button[aria-controls="site-menu"], #site-menu{display:none!important}
 @container (max-width: 1100px){
 .mh-nav{display:none!important}
@@ -73,6 +74,9 @@ nav[aria-label="Social"]{display:none!important}
 .latest-row > article:nth-child(1){order:2}
 .latest-row > article:nth-child(2){order:1}
 .latest-row > article:nth-child(3){order:3}
+.latest-row > .loop-clone{display:flex!important}
+.latest-row > .loop-before{order:0}
+.latest-row > .loop-after{order:5}
 #site-menu > div{padding-top:26px!important}
 }
 .btn-line:hover{background:#185640;color:#F4EEDF}
@@ -156,7 +160,7 @@ section[id]{scroll-margin-top:16px}
 </header><main>
 
 <!-- Hero: header photo with latest blurbs -->
-<section aria-labelledby="latest-h" class="hero-photo" style="min-height: 780px; display: flex; flex-direction: column; justify-content: space-between">
+<section aria-labelledby="latest-h" class="hero-photo" style="min-height: 663px; display: flex; flex-direction: column; justify-content: space-between">
 <div style="max-width: 1280px; width: 100%; margin: 0 auto; padding: 20px 24px 0; box-sizing: border-box; display: flex; justify-content: flex-end">
 
 </div>
@@ -193,6 +197,73 @@ section[id]{scroll-margin-top:16px}
 <div style="display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: auto; padding-top: 6px">
 <p style="margin: 0; font-size: 13px; opacity: .85">By [Author] · [min] read</p>
 <a href="#" style="display: flex; align-items: center; gap: 8px; min-height: 44px; color: inherit; font-weight: 700; font-size: 13px; letter-spacing: .08em; text-transform: uppercase; text-decoration: none"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg>Read</a>
+</div>
+</div>
+</article>
+<!-- Loop copies for the mobile carousel (hidden on desktop) -->
+<article class="loop-clone loop-before" aria-hidden="true" style="flex: 1 1 300px; min-width: 0; background: #F4EEDF; color: #14231C; border-radius: 10px; overflow: hidden; box-shadow: 0 14px 36px rgba(0,0,0,.30); display: flex; flex-direction: column">
+<a tabindex="-1" href="#" aria-label="Watch: The Night the Coliseum Shook" class="ph" style="display: flex; aspect-ratio: 16 / 9; align-items: center; justify-content: center; position: relative"><span style="width: 60px; height: 60px; border-radius: 50%; background: #FFB71B; color: #14231C; display: flex; align-items: center; justify-content: center"><svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 4.5v15l13-7.5z"></path></svg></span><span style="position: absolute; right: 12px; bottom: 12px; background: rgba(15,58,43,.9); color: #F4EEDF; font-size: 12px; font-weight: 600; padding: 4px 8px; border-radius: 4px">[mm:ss]</span></a>
+<div style="flex: 1; padding: 18px 22px 12px; display: flex; flex-direction: column; gap: 10px">
+<p style="margin: 0; font-size: 11px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: #185640">New Video</p>
+<h3 style="margin: 0; font-family: Fraunces, Georgia, serif; font-size: 24px; font-weight: 600; line-height: 1.15"><a tabindex="-1" href="#" class="hl">The Night the Coliseum Shook</a></h3>
+<div style="display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: auto; padding-top: 6px">
+<p style="margin: 0; font-size: 13px; opacity: .85">Video · [mm:ss]</p>
+<a tabindex="-1" href="#" style="display: flex; align-items: center; gap: 8px; min-height: 44px; color: inherit; font-weight: 700; font-size: 13px; letter-spacing: .08em; text-transform: uppercase; text-decoration: none"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 4.5v15l13-7.5z"></path></svg>Watch</a>
+</div>
+</div>
+</article>
+<article class="loop-clone loop-before" aria-hidden="true" style="flex: 1 1 300px; min-width: 0; background: #F4EEDF; color: #14231C; border-radius: 10px; overflow: hidden; box-shadow: 0 14px 36px rgba(0,0,0,.30); display: flex; flex-direction: column">
+<a tabindex="-1" href="#" aria-label="Listen: Green and Gold Forever" class="ph-gold" style="display: flex; aspect-ratio: 16 / 9; align-items: center; justify-content: center; position: relative"><img src="/assets/iconic-sonics-logo.png" alt="" style="width: 42%; height: auto"><span style="position: absolute; left: 14px; bottom: 14px; width: 44px; height: 44px; border-radius: 50%; background: #185640; color: #FFB71B; display: flex; align-items: center; justify-content: center"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 4.5v15l13-7.5z"></path></svg></span></a>
+<div style="flex: 1; padding: 18px 22px 12px; display: flex; flex-direction: column; gap: 10px">
+<p style="margin: 0; font-size: 11px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: #185640">New Episode</p>
+<h3 style="margin: 0; font-family: Fraunces, Georgia, serif; font-size: 24px; font-weight: 600; line-height: 1.15"><a tabindex="-1" href="#" class="hl">Green and Gold Forever, With [Legend Name]</a></h3>
+<div style="display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: auto; padding-top: 6px">
+<p style="margin: 0; font-size: 13px; opacity: .85">Episode [##] · [mm] min</p>
+<a tabindex="-1" href="#" style="display: flex; align-items: center; gap: 8px; min-height: 44px; color: inherit; font-weight: 700; font-size: 13px; letter-spacing: .08em; text-transform: uppercase; text-decoration: none"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 4.5v15l13-7.5z"></path></svg>Listen</a>
+</div>
+</div>
+</article>
+<article class="loop-clone loop-before" aria-hidden="true" style="flex: 1 1 300px; min-width: 0; background: #F4EEDF; color: #14231C; border-radius: 10px; overflow: hidden; box-shadow: 0 14px 36px rgba(0,0,0,.30); display: flex; flex-direction: column">
+<a tabindex="-1" href="#" aria-label="Read: The Last Home Game" class="ph-deep" style="display: block; aspect-ratio: 16 / 9"></a>
+<div style="flex: 1; padding: 18px 22px 12px; display: flex; flex-direction: column; gap: 10px">
+<p style="margin: 0; font-size: 11px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: #185640">Original Story</p>
+<h3 style="margin: 0; font-family: Fraunces, Georgia, serif; font-size: 24px; font-weight: 600; line-height: 1.15"><a tabindex="-1" href="#" class="hl">The Last Home Game: An Oral History</a></h3>
+<div style="display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: auto; padding-top: 6px">
+<p style="margin: 0; font-size: 13px; opacity: .85">By [Author] · [min] read</p>
+<a tabindex="-1" href="#" style="display: flex; align-items: center; gap: 8px; min-height: 44px; color: inherit; font-weight: 700; font-size: 13px; letter-spacing: .08em; text-transform: uppercase; text-decoration: none"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg>Read</a>
+</div>
+</div>
+</article>
+<article class="loop-clone loop-after" aria-hidden="true" style="flex: 1 1 300px; min-width: 0; background: #F4EEDF; color: #14231C; border-radius: 10px; overflow: hidden; box-shadow: 0 14px 36px rgba(0,0,0,.30); display: flex; flex-direction: column">
+<a tabindex="-1" href="#" aria-label="Watch: The Night the Coliseum Shook" class="ph" style="display: flex; aspect-ratio: 16 / 9; align-items: center; justify-content: center; position: relative"><span style="width: 60px; height: 60px; border-radius: 50%; background: #FFB71B; color: #14231C; display: flex; align-items: center; justify-content: center"><svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 4.5v15l13-7.5z"></path></svg></span><span style="position: absolute; right: 12px; bottom: 12px; background: rgba(15,58,43,.9); color: #F4EEDF; font-size: 12px; font-weight: 600; padding: 4px 8px; border-radius: 4px">[mm:ss]</span></a>
+<div style="flex: 1; padding: 18px 22px 12px; display: flex; flex-direction: column; gap: 10px">
+<p style="margin: 0; font-size: 11px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: #185640">New Video</p>
+<h3 style="margin: 0; font-family: Fraunces, Georgia, serif; font-size: 24px; font-weight: 600; line-height: 1.15"><a tabindex="-1" href="#" class="hl">The Night the Coliseum Shook</a></h3>
+<div style="display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: auto; padding-top: 6px">
+<p style="margin: 0; font-size: 13px; opacity: .85">Video · [mm:ss]</p>
+<a tabindex="-1" href="#" style="display: flex; align-items: center; gap: 8px; min-height: 44px; color: inherit; font-weight: 700; font-size: 13px; letter-spacing: .08em; text-transform: uppercase; text-decoration: none"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 4.5v15l13-7.5z"></path></svg>Watch</a>
+</div>
+</div>
+</article>
+<article class="loop-clone loop-after" aria-hidden="true" style="flex: 1 1 300px; min-width: 0; background: #F4EEDF; color: #14231C; border-radius: 10px; overflow: hidden; box-shadow: 0 14px 36px rgba(0,0,0,.30); display: flex; flex-direction: column">
+<a tabindex="-1" href="#" aria-label="Listen: Green and Gold Forever" class="ph-gold" style="display: flex; aspect-ratio: 16 / 9; align-items: center; justify-content: center; position: relative"><img src="/assets/iconic-sonics-logo.png" alt="" style="width: 42%; height: auto"><span style="position: absolute; left: 14px; bottom: 14px; width: 44px; height: 44px; border-radius: 50%; background: #185640; color: #FFB71B; display: flex; align-items: center; justify-content: center"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 4.5v15l13-7.5z"></path></svg></span></a>
+<div style="flex: 1; padding: 18px 22px 12px; display: flex; flex-direction: column; gap: 10px">
+<p style="margin: 0; font-size: 11px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: #185640">New Episode</p>
+<h3 style="margin: 0; font-family: Fraunces, Georgia, serif; font-size: 24px; font-weight: 600; line-height: 1.15"><a tabindex="-1" href="#" class="hl">Green and Gold Forever, With [Legend Name]</a></h3>
+<div style="display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: auto; padding-top: 6px">
+<p style="margin: 0; font-size: 13px; opacity: .85">Episode [##] · [mm] min</p>
+<a tabindex="-1" href="#" style="display: flex; align-items: center; gap: 8px; min-height: 44px; color: inherit; font-weight: 700; font-size: 13px; letter-spacing: .08em; text-transform: uppercase; text-decoration: none"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 4.5v15l13-7.5z"></path></svg>Listen</a>
+</div>
+</div>
+</article>
+<article class="loop-clone loop-after" aria-hidden="true" style="flex: 1 1 300px; min-width: 0; background: #F4EEDF; color: #14231C; border-radius: 10px; overflow: hidden; box-shadow: 0 14px 36px rgba(0,0,0,.30); display: flex; flex-direction: column">
+<a tabindex="-1" href="#" aria-label="Read: The Last Home Game" class="ph-deep" style="display: block; aspect-ratio: 16 / 9"></a>
+<div style="flex: 1; padding: 18px 22px 12px; display: flex; flex-direction: column; gap: 10px">
+<p style="margin: 0; font-size: 11px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: #185640">Original Story</p>
+<h3 style="margin: 0; font-family: Fraunces, Georgia, serif; font-size: 24px; font-weight: 600; line-height: 1.15"><a tabindex="-1" href="#" class="hl">The Last Home Game: An Oral History</a></h3>
+<div style="display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: auto; padding-top: 6px">
+<p style="margin: 0; font-size: 13px; opacity: .85">By [Author] · [min] read</p>
+<a tabindex="-1" href="#" style="display: flex; align-items: center; gap: 8px; min-height: 44px; color: inherit; font-weight: 700; font-size: 13px; letter-spacing: .08em; text-transform: uppercase; text-decoration: none"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg>Read</a>
 </div>
 </div>
 </article>
@@ -522,6 +593,24 @@ section[id]{scroll-margin-top:16px}
     var c = row.children[0].getBoundingClientRect(), r = row.getBoundingClientRect();
     row.scrollLeft += (c.left + c.width / 2) - (r.left + r.width / 2);
   }
+  var loopT;
+  function loopLatest() {
+    var row = document.querySelector('.latest-row');
+    if (!row || row.scrollWidth <= row.clientWidth) return;
+    var origV = row.children[1], firstBefore = row.querySelector('.loop-before');
+    if (!origV || !firstBefore) return;
+    var setW = origV.getBoundingClientRect().left - firstBefore.getBoundingClientRect().left;
+    var r = row.getBoundingClientRect(), cx = r.left + r.width / 2, cur = null;
+    for (var i = 0; i < row.children.length; i++) { var b = row.children[i].getBoundingClientRect(); if (b.width && b.left <= cx && b.right >= cx) { cur = row.children[i]; break; } }
+    if (!cur || !setW) return;
+    var shift = cur.classList.contains('loop-before') ? setW : cur.classList.contains('loop-after') ? -setW : 0;
+    if (!shift) return;
+    row.style.scrollSnapType = 'none';
+    row.scrollLeft += shift;
+    requestAnimationFrame(function () { row.style.scrollSnapType = ''; });
+  }
+  var latestRow = document.querySelector('.latest-row');
+  if (latestRow) latestRow.addEventListener('scroll', function () { clearTimeout(loopT); loopT = setTimeout(loopLatest, 140); }, { passive: true });
   render();
   window.addEventListener('load', centerLatest);
 })();
