@@ -35,8 +35,11 @@ a{color:#185640}a:hover{color:#0F3A2B}
 .btn-gold:hover{background:#FFC94D}
 .site{container-type:inline-size}
 .latest-row::-webkit-scrollbar{display:none}
+.mh-actions button[aria-controls="site-menu"], #site-menu{display:none!important}
 @container (max-width: 1100px){
 .mh-nav{display:none!important}
+.mh-actions button[aria-controls="site-menu"]{display:flex!important}
+#site-menu{display:block!important}
 }
 @container (max-width: 760px){
 .mh{height:64px!important}
@@ -71,7 +74,6 @@ nav[aria-label="Social"]{display:none!important}
 .latest-row > article:nth-child(2){order:1}
 .latest-row > article:nth-child(3){order:3}
 #site-menu > div{padding-top:26px!important}
-#site-search-panel form{padding-top:30px!important}
 }
 .btn-line:hover{background:#185640;color:#F4EEDF}
 .pill:hover{border-color:#FFB71B;color:#FFB71B}
@@ -111,6 +113,7 @@ section[id]{scroll-margin-top:16px}
 <nav aria-label="Primary" class="mh-nav" style="flex: 1 1 auto; min-width: 0; display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 4px 30px; font-family: 'Big Shoulders Display', sans-serif; font-weight: 800; font-size: 19px; letter-spacing: .06em; text-transform: uppercase">
 <a href="#episodes" class="hl" style="padding: 12px 0; line-height: 22px">Podcast</a>
 <a href="#videos" class="hl" style="padding: 12px 0; line-height: 22px">Videos</a>
+<a href="#stories" class="hl" style="padding: 12px 0; line-height: 22px">Sonics News</a>
 
 
 <a href="#community" class="hl" style="padding: 12px 0">Community</a>
@@ -119,7 +122,6 @@ section[id]{scroll-margin-top:16px}
 <a href="#partners" class="hl" style="padding: 12px 0">Partners</a>
 </nav><div class="mh-actions" style="display: flex; gap: 8px; align-items: center; flex-shrink: 0; margin-left: auto">
 <a href="#newsletter" class="btn-gold mh-sub" style="background: #FFB71B; color: #14231C; text-decoration: none; font-weight: 700; font-size: 14px; letter-spacing: .06em; text-transform: uppercase; height: 46px; padding: 0 20px; box-sizing: border-box; display: inline-flex; align-items: center; border-radius: 2px">Subscribe</a>
-<button aria-label="Search" aria-expanded="false" aria-controls="site-search-panel" data-action="toggleSearch" style="width: 46px; height: 46px; box-sizing: border-box; border: 2px solid #14231C; border-radius: 2px; background: transparent; cursor: pointer; display: flex; align-items: center; justify-content: center; color: #14231C"><span data-if="searchClosed" style="display: contents"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-3.5-3.5"></path></svg></span><span data-if="searchOpen" style="display: contents"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg></span></button>
 <button aria-label="Open menu" aria-expanded="false" aria-controls="site-menu" data-action="toggleMenu" style="width: 46px; height: 46px; box-sizing: border-box; border: 2px solid #14231C; border-radius: 2px; background: transparent; cursor: pointer; display: flex; align-items: center; justify-content: center; color: #14231C"><span data-if="menuClosed" style="display: contents"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18"></path></svg></span><span data-if="menuOpen" style="display: contents"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg></span></button>
 </div>
 </div>
@@ -151,25 +153,6 @@ section[id]{scroll-margin-top:16px}
 </div>
 </span>
 
-<!-- Search panel -->
-<span data-if="searchOpen" style="display: contents">
-<div id="site-search-panel" style="position: absolute; left: 0; right: 0; top: 100%; background: #F4EEDF; border-top: 1px solid rgba(20,35,28,.18); border-bottom: 3px solid #14231C; box-shadow: 0 24px 48px rgba(0,0,0,.22); z-index: 5">
-<form role="search" style="max-width: 880px; margin: 0 auto; padding: 44px 24px 30px; display: flex; flex-direction: column; gap: 14px">
-<label for="site-search" style="font-size: 12px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: #185640">Search episodes, videos, stories and guests</label>
-<div style="display: flex; flex-wrap: wrap; gap: 10px">
-<input id="site-search" type="search" placeholder="Try 1979, the Coliseum or a legend’s name" style="flex: 1 1 240px; min-width: 0; height: 54px; box-sizing: border-box; border: 2px solid #14231C; border-radius: 2px; padding: 0 16px; font-size: 17px; font-family: Inter, sans-serif; background: #FFFFFF; color: #14231C">
-<button type="button" class="btn-gold" style="flex: 0 0 auto; height: 54px; padding: 0 24px; border: 0; border-radius: 2px; background: #FFB71B; color: #14231C; font-weight: 800; font-size: 14px; letter-spacing: .08em; text-transform: uppercase; cursor: pointer">Search</button>
-</div>
-<div style="display: flex; flex-wrap: wrap; gap: 8px; align-items: center; font-size: 13px">
-<span style="color: #4A5A52; font-weight: 600; margin-right: 4px">Popular</span>
-<a href="#" class="btn-line" style="color: #14231C; text-decoration: none; border: 1px solid rgba(20,35,28,.3); border-radius: 999px; padding: 11px 14px">1979 Championship</a>
-<a href="#" class="btn-line" style="color: #14231C; text-decoration: none; border: 1px solid rgba(20,35,28,.3); border-radius: 999px; padding: 11px 14px">The Coliseum</a>
-<a href="#" class="btn-line" style="color: #14231C; text-decoration: none; border: 1px solid rgba(20,35,28,.3); border-radius: 999px; padding: 11px 14px">Bring Back the Sonics</a>
-<a href="#" class="btn-line" style="color: #14231C; text-decoration: none; border: 1px solid rgba(20,35,28,.3); border-radius: 999px; padding: 11px 14px">Oral histories</a>
-</div>
-</form>
-</div>
-</span>
 </header><main>
 
 <!-- Hero: header photo with latest blurbs -->
@@ -512,33 +495,26 @@ section[id]{scroll-margin-top:16px}
 
 <script>
 (function () {
-  var state = { menuOpen: false, searchOpen: false };
+  var state = { menuOpen: false };
   var menuBtn = document.querySelector('[data-action="toggleMenu"]');
-  var searchBtn = document.querySelector('[data-action="toggleSearch"]');
   function val(k) {
     if (k === 'menuClosed') return !state.menuOpen;
-    if (k === 'searchClosed') return !state.searchOpen;
     return !!state[k];
   }
   function render() {
     document.querySelectorAll('[data-if]').forEach(function (el) { el.hidden = !val(el.getAttribute('data-if')); });
     if (menuBtn) { menuBtn.setAttribute('aria-expanded', state.menuOpen); menuBtn.setAttribute('aria-label', state.menuOpen ? 'Close menu' : 'Open menu'); }
-    if (searchBtn) { searchBtn.setAttribute('aria-expanded', state.searchOpen); searchBtn.setAttribute('aria-label', state.searchOpen ? 'Close search' : 'Search'); }
   }
   document.addEventListener('click', function (e) {
     var t = e.target.closest('[data-action]');
     if (!t) return;
     var a = t.getAttribute('data-action');
-    if (a === 'toggleMenu') { state.menuOpen = !state.menuOpen; state.searchOpen = false; }
-    else if (a === 'toggleSearch') {
-      state.searchOpen = !state.searchOpen; state.menuOpen = false;
-      if (state.searchOpen) setTimeout(function () { var i = document.getElementById('site-search'); if (i) i.focus(); }, 30);
-    }
-    else if (a === 'closeAll') { state.menuOpen = false; state.searchOpen = false; }
+    if (a === 'toggleMenu') { state.menuOpen = !state.menuOpen; }
+    else if (a === 'closeAll') { state.menuOpen = false; }
     render();
   });
   document.addEventListener('keydown', function (e) {
-    if (e.key === 'Escape' && (state.menuOpen || state.searchOpen)) { state.menuOpen = false; state.searchOpen = false; render(); }
+    if (e.key === 'Escape' && state.menuOpen) { state.menuOpen = false; render(); }
   });
   function centerLatest() {
     var row = document.querySelector('.latest-row');
