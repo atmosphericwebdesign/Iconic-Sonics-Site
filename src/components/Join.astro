@@ -1,0 +1,44 @@
+---
+import site from '../data/site.json';
+---
+<!-- Join -->
+<section id="join" aria-labelledby="join-h" class="ph-gold" style="color: #14231C">
+<div class="wrap split" style="max-width: 1280px; margin: 0 auto; padding: 88px 24px; box-sizing: border-box; display: flex; align-items: center; gap: 56px">
+<div style="flex: 3 1 0; min-width: 0; display: flex; flex-direction: column; gap: 18px">
+<h2 id="join-h" class="join-title" style="margin: 0; font-family: Gobold, Impact, 'Arial Narrow', sans-serif; font-size: 76px; font-weight: 700; line-height: 1.12; color: #0F3A2B">Join the<br class="m-br"> <span style="white-space: nowrap">Iconic Sonics</span> community</h2>
+<p style="margin: 0; font-size: 18px; line-height: 1.6; max-width: 560px">New episodes, event invites and the latest on Sonics basketball in Seattle. One email a week, from the glory years to the return.</p>
+<p style="margin: 4px 0 0; font-size: 14px; display: flex; flex-wrap: wrap; gap: 6px 18px"><span>Or follow the show on</span><a href={site.links.youtube} style="color: #0F3A2B; font-weight: 700">YouTube</a><a href={site.links.spotify} style="color: #0F3A2B; font-weight: 700">Spotify</a><a href={site.links.apple} style="color: #0F3A2B; font-weight: 700">Apple Podcasts</a></p>
+</div>
+<form id="join-form" action="https://api.web3forms.com/submit" method="POST" style="flex: 2 1 0; min-width: 0; background: #0F3A2B; color: #F4EEDF; padding: 32px; border-radius: 3px; display: flex; flex-direction: column; gap: 14px; box-shadow: 0 20px 50px rgba(15,58,43,.25)">
+<input type="hidden" name="access_key" value={site.web3formsKey}>
+<input type="hidden" name="subject" value="New Iconic Sonics community signup">
+<input type="hidden" name="from_name" value="Iconic Sonics website">
+<input type="checkbox" name="botcheck" tabindex="-1" autocomplete="off" aria-hidden="true" style="display: none">
+<p style="margin: 0; font-family: Gobold, Impact, 'Arial Narrow', sans-serif; font-size: 30px; font-weight: 700; line-height: 1">Sign up</p>
+<label for="join-email" style="font-size: 13px; font-weight: 600">Email address</label>
+<input id="join-email" name="email" type="email" required autocomplete="email" placeholder="you@example.com" style="width: 100%; min-width: 0; height: 52px; box-sizing: border-box; border: 0; border-radius: 2px; padding: 0 16px; font-size: 16px; font-family: Poppins, system-ui, sans-serif; background: #FAFAFA; color: #14231C">
+<button type="submit" class="btn-gold" style="height: 52px; border: 0; border-radius: 2px; background: #FFB71B; color: #14231C; font-weight: 800; font-size: 14px; letter-spacing: .08em; text-transform: uppercase; font-family: Poppins, system-ui, sans-serif; cursor: pointer">Join the community</button>
+<p id="join-status" role="status" aria-live="polite" style="margin: 0; font-size: 13px; color: rgba(244,238,223,.78)">Free. Unsubscribe anytime.</p>
+</form>
+</div>
+</section>
+<script is:inline>
+(function () {
+  var f = document.getElementById('join-form');
+  if (!f) return;
+  var status = document.getElementById('join-status');
+  f.addEventListener('submit', function (e) {
+    e.preventDefault();
+    if (!f.access_key.value) { status.textContent = 'Signup is not connected yet.'; return; }
+    var btn = f.querySelector('button'); btn.disabled = true; status.textContent = 'Sending…';
+    fetch(f.action, { method: 'POST', headers: { Accept: 'application/json' }, body: new FormData(f) })
+      .then(function (r) { return r.json(); })
+      .then(function (d) {
+        if (d.success) { f.reset(); status.textContent = "You're in. Watch your inbox for the next episode."; }
+        else { status.textContent = 'Something went wrong. Please try again.'; }
+      })
+      .catch(function () { status.textContent = 'Something went wrong. Please try again.'; })
+      .finally(function () { btn.disabled = false; });
+  });
+})();
+</script>

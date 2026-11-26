@@ -1,0 +1,11 @@
+[
+  { "name": "Shawn Kemp", "role": "Forward · Sonics 1989 to 1997", "category": "Players", "photo": "/assets/legend-kemp.jpg", "featured": true },
+  { "name": "Gary Payton", "role": "Guard · Sonics 1990 to 2003", "category": "Players", "photo": "/assets/legend-payton.jpg", "featured": true },
+  { "name": "Detlef Schrempf", "role": "Forward · Sonics 1993 to 1999", "category": "Players", "photo": "/assets/legend-schrempf.jpg", "featured": true },
+  { "name": "George Karl", "role": "Head coach · Sonics 1992 to 1998", "category": "Coaches", "photo": "/assets/legend-karl.jpg", "featured": true },
+  { "name": "Bob Whitsitt", "role": "[Role] · Sonics [years]", "category": "Executives", "photo": null },
+  { "name": "Jim McIlvaine", "role": "[Role] · Sonics [years]", "category": "Players", "photo": null },
+  { "name": "Eldridge Recasner", "role": "[Role] · [Years]", "category": "Players", "photo": null },
+  { "name": "Antonio Davis", "role": "[Role] · [Years]", "category": "Players", "photo": null },
+  { "name": "Ramona Shelburne", "role": "[Role] · [Outlet]", "category": "Media", "photo": null }
+]

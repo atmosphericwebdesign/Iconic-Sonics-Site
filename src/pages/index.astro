@@ -1,0 +1,160 @@
+---
+import Base from '../layouts/Base.astro';
+import EpisodeCard from '../components/EpisodeCard.astro';
+import GuestCard from '../components/GuestCard.astro';
+import VideoCard from '../components/VideoCard.astro';
+import Join from '../components/Join.astro';
+import { site, featured, episodes, guests, videos, partners } from '../lib/content.js';
+import '../styles/home.css';
+const heroMeta = ['Iconic Sonics', featured.numberText, featured.durationText].filter(Boolean).join(' · ');
+const moreEpisodes = episodes.filter((e) => e.slug !== featured.slug).slice(0, 3);
+const homeGuests = guests.filter((g) => g.featured).slice(0, 4);
+const clips = videos.filter((v) => v.kind !== 'Full episode').slice(0, 2);
+const homeVideos = clips.length ? clips : site.showPlaceholders ? [null, null] : [];
+const jsonLd = { '@type': 'PodcastSeries', name: 'Iconic Sonics', url: site.url, webFeed: site.podcast.rss, description: site.description };
+---
+<Base jsonLd={jsonLd} preload="/assets/hero-studio.webp">
+<!-- Featured episode -->
+<section aria-labelledby="feat-h" class="hero-wrap" style="padding: 0; box-sizing: border-box">
+<div class="hero-art" style="position: relative; min-height: 760px; overflow: hidden; display: flex; align-items: flex-end">
+<div aria-hidden="true" style="position: absolute; inset: 0; background: linear-gradient(to top, rgba(8,24,18,.92) 0%, rgba(8,24,18,.55) 38%, rgba(8,24,18,0) 70%)"></div>
+<div class="hero-body" style="position: relative; z-index: 1; width: 100%; max-width: 1392px; margin: 0 auto; padding: 48px 56px 44px; box-sizing: border-box; display: flex; flex-direction: column; align-items: flex-start; gap: 16px; color: #F7F4EC">
+<span style="background: rgba(150,150,150,.38); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); color: #F7F4EC; font-size: 15px; font-weight: 500; padding: 7px 17px; border: 1px solid #FFFFFF; border-radius: 999px">Latest Episode</span>
+<h2 id="feat-h" class="hero-title" style="margin: 0; max-width: 940px; text-wrap: balance; font-family: Gobold, Impact, 'Arial Narrow', sans-serif; font-size: 72px; font-weight: 700; line-height: 1.16; color: #F7F4EC"><a href={featured.href} class="hl">{featured.title}</a></h2>
+<div class="hero-card" style="margin-top: 14px; display: flex; align-items: center; gap: 20px; padding: 14px 18px 14px 14px; max-width: 100%; box-sizing: border-box; background: rgba(120,120,120,.28); -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px); border: 1px solid rgba(247,244,236,.14); border-radius: 16px">
+<a href={featured.href} class="hero-thumb" style="flex: 0 0 132px; width: 132px; height: 132px; border-radius: 10px; overflow: hidden; display: block; background: #0C2219">{featured.thumb && <img src={featured.thumb} alt={`Episode artwork: ${featured.title}`} style={`width: 100%; height: 100%; object-fit: cover; object-position: ${featured.thumbPosition}; display: block`}>}</a>
+<div class="hero-card-text" style="min-width: 0; display: flex; flex-direction: column; gap: 10px">
+<div>
+{featured.guestText && <p style="margin: 0 0 4px; font-size: 18px; font-weight: 600; line-height: 1.3">{featured.guestText}</p>}
+<p style="margin: 0; font-size: 14px; color: rgba(247,244,236,.82)">{heroMeta}</p>
+</div>
+<div class="hero-btns" style="display: flex; flex-wrap: wrap; gap: 10px">
+<a href={featured.links.youtube} class="btn-gold" style="display: inline-flex; align-items: center; gap: 8px; height: 44px; padding: 0 20px; background: #FFB71B; color: #14231C; text-decoration: none; font-weight: 700; font-size: 14px; border-radius: 999px"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 4.5v15l13-7.5z"></path></svg>Watch on YouTube</a>
+<a href={featured.links.spotify} class="btn-line-light" style="display: inline-flex; align-items: center; gap: 8px; height: 44px; padding: 0 18px; border: 1.5px solid rgba(247,244,236,.7); color: #F7F4EC; text-decoration: none; font-weight: 600; font-size: 14px; border-radius: 999px; box-sizing: border-box"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M3 18v-6a9 9 0 0 1 18 0v6"></path><path d="M21 19a2 2 0 0 1-2 2h-1v-6h3zM3 19a2 2 0 0 0 2 2h1v-6H3z"></path></svg>Spotify</a>
+<a href={featured.links.apple} class="btn-line-light" style="display: inline-flex; align-items: center; gap: 8px; height: 44px; padding: 0 18px; border: 1.5px solid rgba(247,244,236,.7); color: #F7F4EC; text-decoration: none; font-weight: 600; font-size: 14px; border-radius: 999px; box-sizing: border-box"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M3 18v-6a9 9 0 0 1 18 0v6"></path><path d="M21 19a2 2 0 0 1-2 2h-1v-6h3zM3 19a2 2 0 0 0 2 2h1v-6H3z"></path></svg>Apple Podcasts</a>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- More episodes -->
+<section id="episodes" aria-labelledby="eps-h">
+<div class="wrap" style="max-width: 1280px; margin: 0 auto; padding: 56px 24px 64px; box-sizing: border-box">
+<div class="sec-head" style="display: flex; align-items: baseline; justify-content: space-between; gap: 16px; margin-bottom: 36px; padding-bottom: 16px; border-bottom: 1px solid rgba(20,35,28,.2)">
+<h2 id="eps-h" style="margin: 0; font-family: Gobold, Impact, 'Arial Narrow', sans-serif; font-size: 40px; font-weight: 700; letter-spacing: -.01em">More Episodes</h2>
+<a href="/episodes/" style="font-weight: 600; font-size: 17px; white-space: nowrap">All episodes</a>
+</div>
+<div class="ep-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 20px">
+{moreEpisodes.map((ep) => <EpisodeCard ep={ep} />)}
+</div>
+</div>
+</section>
+
+<!-- Legendary guests -->
+<section id="legends" aria-labelledby="leg-h" style="background: #0F3A2B; color: #F4EEDF">
+<div class="wrap" style="max-width: 1280px; margin: 0 auto; padding: 104px 24px 96px; box-sizing: border-box">
+<div style="display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 20px 40px; margin-bottom: 48px">
+<div style="max-width: 820px">
+<h2 id="leg-h" class="legend-title" style="margin: 0 0 14px; font-family: Gobold, Impact, 'Arial Narrow', sans-serif; font-size: 64px; font-weight: 700; line-height: 1; letter-spacing: .005em; color: #ffb71b">Legendary Guests</h2>
+<p class="legend-intro" style="margin: 0; font-family: Poppins, system-ui, sans-serif; font-size: 19px; font-weight: 400; line-height: 1.55; color: rgba(244,238,223,.82); max-width: 620px; width: 552px">The players and coaches who made Seattle a Sonics city, in their own words.</p>
+</div>
+<a href="/guests/" class="btn-line-light" style="display: inline-flex; align-items: center; height: 48px; padding: 0 22px; border: 1.5px solid rgba(244,238,223,.6); color: #F4EEDF; text-decoration: none; font-weight: 600; font-size: 14px; border-radius: 2px; box-sizing: border-box; white-space: nowrap">Explore all guests</a>
+</div>
+<div class="legend-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 32px 24px">
+{homeGuests.map((g) => <GuestCard guest={g} />)}
+</div>
+</div>
+</section>
+
+<!-- Clips and stories -->
+<section aria-label="Videos and stories">
+<div class="wrap split" style="max-width: 1280px; margin: 0 auto; padding: 96px 24px 88px; box-sizing: border-box; display: flex; gap: 56px">
+<div id="watch" style="flex: 3 1 0; min-width: 0">
+<div class="sec-head" style="display: flex; align-items: baseline; justify-content: space-between; gap: 16px; margin-bottom: 32px; padding-bottom: 16px; border-bottom: 1px solid rgba(20,35,28,.2)">
+<h2 style="margin: 0; font-family: Gobold, Impact, 'Arial Narrow', sans-serif; font-size: 40px; font-weight: 700; letter-spacing: -.01em">Videos</h2>
+<a href="/videos/" style="font-weight: 600; font-size: 17px; white-space: nowrap">All videos</a>
+</div>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 32px 24px">
+{homeVideos.map((v) => <VideoCard video={v} />)}
+</div>
+</div>
+<div id="stories" style="flex: 2 1 0; min-width: 0">
+<div class="sec-head" style="display: flex; align-items: baseline; justify-content: space-between; gap: 16px; margin-bottom: 8px; padding-bottom: 16px; border-bottom: 1px solid rgba(20,35,28,.2)">
+<h2 style="margin: 0; font-family: Gobold, Impact, 'Arial Narrow', sans-serif; font-size: 40px; font-weight: 700; letter-spacing: -.01em">Sonics News</h2>
+<a href="/news/" style="font-weight: 600; font-size: 17px; white-space: nowrap">All news</a>
+</div>
+<article style="padding: 22px 0; border-bottom: 1px solid rgba(20,35,28,.14)">
+<p style="margin: 0 0 8px; font-size: 11px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: #4A5A52">Story</p>
+<h3 style="margin: 0 0 8px; font-family: Gobold, Impact, 'Arial Narrow', sans-serif; font-size: 22px; font-weight: 600; line-height: 1.25"><a href="#" class="hl">[Original story headline]</a></h3>
+<p style="margin: 0; font-size: 13px; color: #4A5A52">By [Author] · [Date]</p>
+</article>
+<article style="padding: 22px 0; border-bottom: 1px solid rgba(20,35,28,.14)">
+<p style="margin: 0 0 8px; font-size: 11px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: #4A5A52">News</p>
+<h3 style="margin: 0 0 8px; font-family: Gobold, Impact, 'Arial Narrow', sans-serif; font-size: 22px; font-weight: 600; line-height: 1.25"><a href="#" class="hl">[Sonics news headline]</a></h3>
+<p style="margin: 0; font-size: 13px; color: #4A5A52">By [Author] · [Date]</p>
+</article>
+<article style="padding: 22px 0">
+<p style="margin: 0 0 8px; font-size: 11px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: #4A5A52">Story</p>
+<h3 style="margin: 0 0 8px; font-family: Gobold, Impact, 'Arial Narrow', sans-serif; font-size: 22px; font-weight: 600; line-height: 1.25"><a href="#" class="hl">[Original story headline]</a></h3>
+<p style="margin: 0; font-size: 13px; color: #4A5A52">By [Author] · [Date]</p>
+</article>
+</div>
+</div>
+</section>
+
+<!-- Community and events -->
+<section id="events" aria-labelledby="ev-h" class="events-photo">
+<div class="wrap" style="max-width: 1280px; margin: 0 auto; padding: 96px 24px; box-sizing: border-box">
+<div class="sec-head" style="display: flex; flex-direction: row-reverse; align-items: baseline; justify-content: space-between; gap: 16px; margin-bottom: 32px; padding-bottom: 16px; border-bottom: 1px solid rgba(244,238,223,.45)">
+<h2 id="ev-h" style="margin: 0; font-family: Gobold, Impact, 'Arial Narrow', sans-serif; font-size: 40px; font-weight: 700; letter-spacing: -.01em; color: #F7F4EC">Community &amp; Events</h2>
+<a href="#" style="font-weight: 600; font-size: 17px; white-space: nowrap; color: #FFB71B">All events</a>
+</div>
+<div class="split" style="display: flex; gap: 48px; align-items: flex-start">
+<article style="flex: 3 1 0; min-width: 0; display: flex; background: #F7F4EC; border-radius: 4px; overflow: hidden; box-shadow: 0 20px 50px rgba(0,0,0,.25)" class="split">
+<div class="ph" style="flex: 1 1 0; min-height: 300px; position: relative; background: #E3DED2"><span style="position: absolute; left: 16px; top: 14px; background: #FFB71B; color: #14231C; font-size: 11px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; padding: 4px 8px; border-radius: 2px">Next up</span><span style="position: absolute; left: 16px; bottom: 14px; font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: #4A5A52">[Photo: past Iconic Sonics gathering]</span></div>
+<div style="flex: 1.1 1 0; min-width: 0; padding: 36px; display: flex; flex-direction: column; justify-content: center; gap: 12px">
+<span class="event-date" style="font-family: Gobold, Impact, 'Arial Narrow', sans-serif; font-weight: 900; font-size: 72px; line-height: 1; color: #185640">Dec 11</span>
+<h3 style="margin: 0; font-family: Gobold, Impact, 'Arial Narrow', sans-serif; font-size: 30px; font-weight: 700; line-height: 1.1">The Iconic Sonics Holiday Gathering</h3>
+<p style="margin: 0; font-size: 14px; color: #3E4F47">[Time] · [Venue], Seattle</p>
+<p style="margin: 0; font-size: 14px; line-height: 1.6; color: #3E4F47">[A sentence about the night: who will be there, what to expect, and who it's for.]</p>
+<div style="margin-top: 6px"><a href="#" class="btn-gold" style="display: inline-flex; align-items: center; height: 48px; padding: 0 24px; background: #FFB71B; color: #14231C; text-decoration: none; font-weight: 700; font-size: 14px; border-radius: 2px">RSVP</a></div>
+</div>
+</article>
+<aside aria-labelledby="ev-more-h" style="flex: 2 1 0; min-width: 0; background: #F7F4EC; border-radius: 4px; padding: 24px 28px 16px; box-shadow: 0 20px 50px rgba(0,0,0,.25)">
+<h3 id="ev-more-h" style="margin: 0 0 4px; font-size: 12px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: #185640">Also coming up</h3>
+<ul style="list-style: none; margin: 0; padding: 0">
+<li style="display: flex; gap: 16px; align-items: center; padding: 16px 0; border-bottom: 1px solid rgba(20,35,28,.14)">
+<div style="flex: 0 0 64px; height: 64px; background: #185640; color: #FAFAFA; border-radius: 3px; display: flex; flex-direction: column; align-items: center; justify-content: center"><span style="font-size: 11px; font-weight: 700; letter-spacing: .14em">[MON]</span><span style="font-family: Gobold, Impact, 'Arial Narrow', sans-serif; font-size: 28px; font-weight: 700; line-height: 1">[DD]</span></div>
+<div style="min-width: 0"><h4 style="margin: 0 0 4px; font-family: Gobold, Impact, 'Arial Narrow', sans-serif; font-size: 20px; font-weight: 700; line-height: 1.15"><a href="#" class="hl">[Live podcast taping]</a></h4><p style="margin: 0; font-size: 13px; color: #4A5A52">[Venue] · [Time]</p></div>
+</li>
+<li style="display: flex; gap: 16px; align-items: center; padding: 16px 0; border-bottom: 1px solid rgba(20,35,28,.14)">
+<div style="flex: 0 0 64px; height: 64px; background: #185640; color: #FAFAFA; border-radius: 3px; display: flex; flex-direction: column; align-items: center; justify-content: center"><span style="font-size: 11px; font-weight: 700; letter-spacing: .14em">[MON]</span><span style="font-family: Gobold, Impact, 'Arial Narrow', sans-serif; font-size: 28px; font-weight: 700; line-height: 1">[DD]</span></div>
+<div style="min-width: 0"><h4 style="margin: 0 0 4px; font-family: Gobold, Impact, 'Arial Narrow', sans-serif; font-size: 20px; font-weight: 700; line-height: 1.15"><a href="#" class="hl">[Community watch party]</a></h4><p style="margin: 0; font-size: 13px; color: #4A5A52">[Venue] · Free and open to all</p></div>
+</li>
+<li style="display: flex; gap: 16px; align-items: center; padding: 16px 0; border-bottom: 1px solid rgba(20,35,28,.14)">
+<div style="flex: 0 0 64px; height: 64px; background: #185640; color: #FAFAFA; border-radius: 3px; display: flex; flex-direction: column; align-items: center; justify-content: center"><span style="font-size: 11px; font-weight: 700; letter-spacing: .14em">[MON]</span><span style="font-family: Gobold, Impact, 'Arial Narrow', sans-serif; font-size: 28px; font-weight: 700; line-height: 1">[DD]</span></div>
+<div style="min-width: 0"><h4 style="margin: 0 0 4px; font-family: Gobold, Impact, 'Arial Narrow', sans-serif; font-size: 20px; font-weight: 700; line-height: 1.15"><a href="#" class="hl">[Fan meetup or partner event]</a></h4><p style="margin: 0; font-size: 13px; color: #4A5A52">[Venue] · [Time]</p></div>
+</li>
+</ul>
+<a href="#" style="display: inline-flex; align-items: center; gap: 8px; min-height: 44px; margin-top: 8px; font-weight: 600; font-size: 17px">See the full calendar<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></a>
+</aside>
+</div>
+</div>
+</section>
+
+<Join />
+
+<!-- Partners -->
+<section id="partners" aria-labelledby="pt-h">
+<div class="wrap" style="max-width: 1080px; margin: 0 auto; padding: 88px 24px; box-sizing: border-box; text-align: center">
+<h2 id="pt-h" style="margin: 0 0 10px; font-size: 12px; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; color: #185640">Our Partners</h2>
+<p style="margin: 0 auto 40px; font-family: Poppins, system-ui, sans-serif; font-size: 22px; line-height: 1.4; color: #3E4F47; max-width: 560px">Iconic Sonics is made possible by local businesses who love this city and this team.</p>
+<div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 24px">
+{partners.map((p) => <a href={`/partners/#${p.id}`} style="flex: 0 1 300px; height: 140px; border: 1px solid rgba(20,35,28,.18); border-radius: 3px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; text-decoration: none; color: #14231C"><img src={p.logo} alt={p.name} loading="lazy" style={`display: block; width: ${p.cardLogoWidth}px; max-width: 75%; height: auto`}></a>)}
+</div>
+<a href="/partners/#become" style="display: inline-flex; align-items: center; gap: 8px; min-height: 44px; margin-top: 28px; font-weight: 600; font-size: 17px">Partner with Iconic Sonics<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></a>
+</div>
+</section>
+</Base>

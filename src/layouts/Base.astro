@@ -1,0 +1,180 @@
+---
+import site from '../data/site.json';
+interface Props { title?: string; description?: string; image?: string; jsonLd?: object; current?: string; preload?: string }
+const { title, description = site.description, image = '/assets/greenseattle-web.jpg', jsonLd, current, preload } = Astro.props;
+const pageTitle = title ? `${title} | Iconic Sonics` : 'Iconic Sonics | Podcast, Video and Stories on the Seattle SuperSonics';
+const canonical = new URL(Astro.url.pathname, site.url).href;
+const ogImage = new URL(image, site.url).href;
+const org = { '@type': 'Organization', '@id': `${site.url}/#org`, name: 'Iconic Sonics', url: site.url, logo: `${site.url}/assets/iconic-sonics-logo.png`, sameAs: [site.links.youtube, site.links.spotify, site.links.apple].filter((x) => x && x !== '#') };
+const graph = { '@context': 'https://schema.org', '@graph': [org, ...(jsonLd ? [jsonLd] : [])] };
+---
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{pageTitle}</title>
+<meta name="description" content={description}>
+<link rel="canonical" href={canonical}>
+<meta name="theme-color" content="#185640">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Iconic Sonics">
+<meta property="og:title" content={title || 'Iconic Sonics'}>
+<meta property="og:description" content={description}>
+<meta property="og:url" content={canonical}>
+<meta property="og:image" content={ogImage}>
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" type="image/png" href="/assets/iconic-sonics-logo.png">
+<link rel="preload" as="font" type="font/woff2" href="/assets/fonts/Gobold-Bold.woff2" crossorigin>
+{preload && <link rel="preload" as="image" href={preload}>}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap">
+<script type="application/ld+json" set:html={JSON.stringify(graph)}></script>
+<style is:inline>[hidden]{display:none!important}</style>
+<slot name="head" />
+</head>
+<body>
+
+<div class="site" style="background: #F7F4EC; color: #14231C; font-family: Poppins, system-ui, sans-serif; width: 100%; max-width: 100%; margin: 0 auto; box-shadow: none">
+
+<!-- Event bar -->
+<div style="background: #0F3A2B; color: #F4EEDF; font-size: 13px">
+<div class="evbar" style="padding: 10px 24px; display: flex; flex-wrap: wrap; gap: 6px 14px; align-items: center; justify-content: center; text-align: center">
+<span class="evbar-date" style="color: #FFB71B; font-weight: 700; font-size: 11px; letter-spacing: .14em; text-transform: uppercase">{site.eventBar.date}</span>
+<span class="evbar-title">{site.eventBar.title}</span>
+<a class="evbar-link" href={site.eventBar.href} style="color: #FFB71B; font-weight: 600">Get details</a>
+</div>
+</div>
+
+<!-- Header -->
+<header class="mh" style="border-bottom: 1px solid rgba(20,35,28,.18); position: relative; z-index: 2; height: 85px">
+<div class="mh-row" style="margin: 0 auto; padding: 0 24px; box-sizing: border-box; display: flex; flex-wrap: nowrap; align-items: center; justify-content: space-between; gap: 24px; height: 100%">
+<a href="/" aria-label="Iconic Sonics home" style="display: block; align-self: flex-start; flex-shrink: 0; margin-top: 12px; position: relative; z-index: 10"><img class="mh-logo" src="/assets/iconic-sonics-logo.png" alt="Iconic Sonics" style="height: 116px; width: auto; display: block"></a>
+<nav aria-label="Primary" class="mh-nav" style="flex: 1 1 auto; min-width: 0; display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 4px 30px; font-family: Gobold, Impact, 'Arial Narrow', sans-serif; font-weight: 800; font-size: 19px; letter-spacing: .06em; text-transform: uppercase">
+<a href="/episodes/" class="hl" aria-current={current === "episodes" ? "page" : undefined} style="padding: 12px 0">Episodes</a>
+<a href="/videos/" class="hl" aria-current={current === "videos" ? "page" : undefined} style="padding: 12px 0">Videos</a>
+<a href="/news/" class="hl" aria-current={current === "news" ? "page" : undefined} style="padding: 12px 0">Sonics News</a>
+<a href="/#events" class="hl" style="padding: 12px 0">Community &amp; Events</a>
+<a href="/partners/" class="hl" aria-current={current === "partners" ? "page" : undefined} style="padding: 12px 0">Partners</a>
+</nav>
+<div class="mh-actions" style="display: flex; gap: 8px; align-items: center; flex-shrink: 0; margin-left: auto">
+<a href="#join" class="btn-gold mh-sub" style="background: #FFB71B; color: #14231C; text-decoration: none; font-weight: 700; font-size: 14px; letter-spacing: .06em; text-transform: uppercase; height: 46px; padding: 0 20px; box-sizing: border-box; display: inline-flex; align-items: center; border-radius: 2px">Subscribe</a>
+<button aria-label="Open menu" aria-expanded="false" aria-controls="site-menu" data-action="toggleMenu" style="width: 46px; height: 46px; box-sizing: border-box; border: 2px solid #14231C; border-radius: 2px; background: transparent; cursor: pointer; display: flex; align-items: center; justify-content: center; color: #14231C"><span data-if="menuClosed" style="display: contents"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18"></path></svg></span><span data-if="menuOpen" style="display: contents"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg></span></button>
+</div>
+</div>
+
+<!-- Menu panel (tablet and phone) -->
+<span data-if="menuOpen" style="display: contents">
+<div id="site-menu" style="position: absolute; left: 0; right: 0; top: 100%; background: #0F3A2B; color: #F4EEDF; border-top: 3px solid #FFB71B; box-shadow: 0 24px 48px rgba(0,0,0,.32); z-index: 5">
+<div style="max-width: 1280px; margin: 0 auto; padding: 50px 24px 32px; display: flex; flex-wrap: wrap; gap: 28px 64px">
+<nav aria-label="Menu" style="flex: 2 1 280px; min-width: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); column-gap: 32px; font-family: Gobold, Impact, 'Arial Narrow', sans-serif; font-weight: 800; font-size: 30px; letter-spacing: .03em; text-transform: uppercase">
+<a href="/episodes/" data-action="closeAll" style="color: #F4EEDF; text-decoration: none; padding: 10px 0; border-bottom: 1px solid rgba(244,238,223,.15)">Episodes</a>
+<a href="/videos/" data-action="closeAll" style="color: #F4EEDF; text-decoration: none; padding: 10px 0; border-bottom: 1px solid rgba(244,238,223,.15)">Videos</a>
+<a href="/news/" data-action="closeAll" style="color: #F4EEDF; text-decoration: none; padding: 10px 0; border-bottom: 1px solid rgba(244,238,223,.15)">Sonics News</a>
+<a href="/#events" data-action="closeAll" style="color: #F4EEDF; text-decoration: none; padding: 10px 0; border-bottom: 1px solid rgba(244,238,223,.15)">Community &amp; Events</a>
+<a href="/partners/" data-action="closeAll" style="color: #F4EEDF; text-decoration: none; padding: 10px 0; border-bottom: 1px solid rgba(244,238,223,.15)">Partners</a>
+</nav>
+<div style="flex: 1 1 220px; min-width: 0; display: flex; flex-direction: column; gap: 14px">
+<p style="margin: 0; font-size: 11px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: #FFB71B">Watch and listen</p>
+<div style="display: flex; flex-wrap: wrap; gap: 8px">
+<a href={site.links.youtube} class="pill" style="color: #F4EEDF; text-decoration: none; border: 1px solid rgba(244,238,223,.4); border-radius: 999px; padding: 11px 16px; font-size: 14px; font-weight: 600">YouTube</a>
+<a href={site.links.spotify} class="pill" style="color: #F4EEDF; text-decoration: none; border: 1px solid rgba(244,238,223,.4); border-radius: 999px; padding: 11px 16px; font-size: 14px; font-weight: 600">Spotify</a>
+<a href={site.links.apple} class="pill" style="color: #F4EEDF; text-decoration: none; border: 1px solid rgba(244,238,223,.4); border-radius: 999px; padding: 11px 16px; font-size: 14px; font-weight: 600">Apple Podcasts</a>
+</div>
+<a href="#join" data-action="closeAll" class="btn-gold" style="margin-top: 8px; display: flex; align-items: center; justify-content: center; height: 50px; background: #FFB71B; color: #14231C; text-decoration: none; font-weight: 800; font-size: 14px; letter-spacing: .08em; text-transform: uppercase; border-radius: 2px">Join the community</a>
+</div>
+</div>
+</div>
+</span>
+</header>
+
+<main>
+<slot />
+</main>
+
+
+<!-- Footer -->
+<footer style="background: #0F3A2B; color: #F4EEDF">
+<div style="max-width: 1280px; margin: 0 auto; padding: 64px 24px 32px; display: flex; flex-wrap: wrap; gap: 40px">
+<div style="flex: 2 1 280px; min-width: 0; display: flex; flex-direction: column; gap: 16px">
+<img src="/assets/iconic-sonics-logo.png" alt="Iconic Sonics" style="width: 160px; height: auto">
+<p style="margin: 0; font-family: Gobold, Impact, 'Arial Narrow', sans-serif; font-style: italic; font-size: 19px; line-height: 1.4; max-width: 320px">{site.tagline}</p>
+<p style="margin: 6px 0 0; font-size: 14px; display: flex; flex-wrap: wrap; gap: 6px 16px"><a href={site.links.youtube} style="color: #F4EEDF">YouTube</a><a href={site.links.spotify} style="color: #F4EEDF">Spotify</a><a href={site.links.apple} style="color: #F4EEDF">Apple Podcasts</a><a href={site.links.instagram} style="color: #F4EEDF">Instagram</a><a href={site.links.x} style="color: #F4EEDF">X</a><a href={site.links.tiktok} style="color: #F4EEDF">TikTok</a></p>
+</div>
+<nav aria-label="Footer: Watch and listen" style="flex: 1 1 160px; display: flex; flex-direction: column; gap: 10px; font-size: 15px">
+<p style="margin: 0 0 4px; font-size: 11px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: #FFB71B">Watch &amp; Listen</p>
+<a href="/episodes/" style="color: #F4EEDF; text-decoration: none">Episodes</a><a href="/videos/" style="color: #F4EEDF; text-decoration: none">Videos</a><a href="/news/" style="color: #F4EEDF; text-decoration: none">Sonics News</a>
+</nav>
+<nav aria-label="Footer: Community" style="flex: 1 1 160px; display: flex; flex-direction: column; gap: 10px; font-size: 15px">
+<p style="margin: 0 0 4px; font-size: 11px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: #FFB71B">Community</p>
+<a href="/#events" style="color: #F4EEDF; text-decoration: none">Events</a><a href="#join" style="color: #F4EEDF; text-decoration: none">Join the community</a><a href="/partners/" style="color: #F4EEDF; text-decoration: none">Partners</a>
+</nav>
+<nav aria-label="Footer: Iconic Sonics" style="flex: 1 1 160px; display: flex; flex-direction: column; gap: 10px; font-size: 15px">
+<p style="margin: 0 0 4px; font-size: 11px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: #FFB71B">Iconic Sonics</p>
+<a href="/partners/#become" style="color: #F4EEDF; text-decoration: none">Partner with us</a><a href="#" style="color: #F4EEDF; text-decoration: none">Contact</a>
+</nav>
+</div>
+<div style="max-width: 1280px; margin: 0 auto; padding: 18px 24px 28px; border-top: 1px solid rgba(244,238,223,.18); display: flex; flex-wrap: wrap; gap: 12px; justify-content: space-between; font-size: 13px; color: rgba(244,238,223,.75)">
+<p style="margin: 0">© {new Date().getFullYear()} Iconic Sonics. All rights reserved.</p>
+<p style="margin: 0"><a href="#" style="color: rgba(244,238,223,.75)">Privacy</a> · <a href="#" style="color: rgba(244,238,223,.75)">Terms</a></p>
+</div>
+</footer>
+
+</div>
+
+
+<script is:inline>
+(function () {
+  var state = { menuOpen: false };
+  var menuBtn = document.querySelector('[data-action="toggleMenu"]');
+  function val(k) {
+    if (k === 'menuClosed') return !state.menuOpen;
+    return !!state[k];
+  }
+  function render() {
+    document.querySelectorAll('[data-if]').forEach(function (el) { el.hidden = !val(el.getAttribute('data-if')); });
+    if (menuBtn) { menuBtn.setAttribute('aria-expanded', state.menuOpen); menuBtn.setAttribute('aria-label', state.menuOpen ? 'Close menu' : 'Open menu'); }
+  }
+  document.addEventListener('click', function (e) {
+    var t = e.target.closest('[data-action]');
+    if (!t) return;
+    var a = t.getAttribute('data-action');
+    if (a === 'toggleMenu') { state.menuOpen = !state.menuOpen; }
+    else if (a === 'closeAll') { state.menuOpen = false; }
+    render();
+  });
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && state.menuOpen) { state.menuOpen = false; render(); }
+  });
+  function centerLatest() {
+    var row = document.querySelector('.latest-row');
+    if (!row || row.scrollWidth <= row.clientWidth || !row.children[0]) return;
+    var c = row.children[0].getBoundingClientRect(), r = row.getBoundingClientRect();
+    row.scrollLeft += (c.left + c.width / 2) - (r.left + r.width / 2);
+  }
+  var loopT;
+  function loopLatest() {
+    var row = document.querySelector('.latest-row');
+    if (!row || row.scrollWidth <= row.clientWidth) return;
+    var origV = row.children[1], firstBefore = row.querySelector('.loop-before');
+    if (!origV || !firstBefore) return;
+    var setW = origV.getBoundingClientRect().left - firstBefore.getBoundingClientRect().left;
+    var r = row.getBoundingClientRect(), cx = r.left + r.width / 2, cur = null;
+    for (var i = 0; i < row.children.length; i++) { var b = row.children[i].getBoundingClientRect(); if (b.width && b.left <= cx && b.right >= cx) { cur = row.children[i]; break; } }
+    if (!cur || !setW) return;
+    var shift = cur.classList.contains('loop-before') ? setW : cur.classList.contains('loop-after') ? -setW : 0;
+    if (!shift) return;
+    row.style.scrollSnapType = 'none';
+    row.scrollLeft += shift;
+    requestAnimationFrame(function () { row.style.scrollSnapType = ''; });
+  }
+  var latestRow = document.querySelector('.latest-row');
+  if (latestRow) latestRow.addEventListener('scroll', function () { clearTimeout(loopT); loopT = setTimeout(loopLatest, 140); }, { passive: true });
+  render();
+  window.addEventListener('load', centerLatest);
+})();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,166 @@
+---
+import Base from '../../layouts/Base.astro';
+import EpisodeCard from '../../components/EpisodeCard.astro';
+import VideoCard from '../../components/VideoCard.astro';
+import Join from '../../components/Join.astro';
+import { episodes, guests, videos, partners, site, formatDate, clockLabel } from '../../lib/content.js';
+import '../../styles/episodes.css';
+
+export function getStaticPaths() {
+  return episodes.map((ep) => ({ params: { slug: ep.slug }, props: { ep } }));
+}
+const { ep } = Astro.props;
+const guest = guests.find((g) => g.name === ep.guests[0]);
+const presenter = partners.find((p) => p.presents);
+const meta = ['Full Episode', ep.numberText, formatDate(ep.date), clockLabel(ep.duration)].filter(Boolean).join(' · ');
+const lastNames = ep.guests.map((n) => n.split(' ').slice(-1)[0].toLowerCase());
+const clips = videos.filter((v) => v.kind !== 'Full episode' && lastNames.some((n) => v.title.toLowerCase().includes(n))).slice(0, 3);
+const more = episodes.filter((e) => e.slug !== ep.slug).slice(0, 3);
+const paragraphs = (ep.summaryParagraphs || []).slice(0, 4);
+const jsonLd = {
+  '@type': 'PodcastEpisode',
+  name: ep.title,
+  url: new URL(ep.href, site.url).href,
+  datePublished: ep.date,
+  description: ep.summary || undefined,
+  episodeNumber: ep.number || undefined,
+  timeRequired: ep.duration ? `PT${Math.round(ep.duration / 60)}M` : undefined,
+  associatedMedia: ep.audio ? { '@type': 'MediaObject', contentUrl: ep.audio } : undefined,
+  partOfSeries: { '@type': 'PodcastSeries', name: 'Iconic Sonics', url: site.url },
+  actor: ep.guests.map((n) => ({ '@type': 'Person', name: n })),
+};
+const description = ep.summary ? ep.summary.slice(0, 155) : `${ep.title}${ep.guestText ? `, ${ep.guestText.toLowerCase()}` : ''}. An Iconic Sonics episode.`;
+const ytThumb = ep.youtubeId ? `https://i.ytimg.com/vi/${ep.youtubeId}/maxresdefault.jpg` : null;
+---
+<Base title={ep.title} description={description} image={ep.thumb || undefined} jsonLd={jsonLd} current="episodes">
+
+<!-- Episode header -->
+<section aria-labelledby="ep-title">
+<div class="wrap" style="max-width: 1080px; margin: 0 auto; padding: 72px 24px 32px; box-sizing: border-box">
+<nav aria-label="Breadcrumb" style="font-size: 13px; margin-bottom: 28px; display: flex; gap: 8px; color: #4A5A52"><a href="/episodes/">Episodes</a><span aria-hidden="true">/</span><span aria-current="page">{ep.numberText || ep.title}</span></nav>
+<p style="margin: 0 0 14px; font-size: 12px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: #185640">{meta}</p>
+<h1 id="ep-title" class="ep-h1" style="margin: 0 0 14px; font-family: Gobold, Impact, 'Arial Narrow', sans-serif; font-size: 60px; font-weight: 700; line-height: 1.02; letter-spacing: -.015em; max-width: 900px; text-wrap: balance">{ep.title}</h1>
+{ep.guestText && <p style="margin: 0; font-family: Gobold, Impact, 'Arial Narrow', sans-serif; font-weight: 800; font-size: 22px; letter-spacing: .05em; text-transform: uppercase">{ep.guestText}</p>}
+</div>
+</section>
+
+<!-- Player -->
+<section aria-label="Watch and listen">
+<div class="wrap-tight" style="max-width: 1080px; margin: 0 auto; padding: 0 24px; box-sizing: border-box">
+{ep.youtubeId ? (
+  <button type="button" class="ph-dark yt-facade" data-yt={ep.youtubeId} aria-label={`Play ${ep.title} on YouTube`} style="display: flex; width: 100%; aspect-ratio: 16 / 9; align-items: center; justify-content: center; position: relative; border: 0; border-radius: 4px; padding: 0; cursor: pointer; overflow: hidden">
+    <img src={ytThumb} alt="" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover">
+    <span style="position: relative; width: 88px; height: 88px; border-radius: 50%; background: #FFB71B; color: #14231C; display: flex; align-items: center; justify-content: center; box-shadow: 0 10px 30px rgba(0,0,0,.3)"><svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 4.5v15l13-7.5z"></path></svg></span>
+  </button>
+) : ep.audio ? (
+  <div class="ph-dark" style="border-radius: 4px; padding: 28px; display: flex; flex-direction: column; gap: 14px; color: #F4EEDF">
+    <p style="margin: 0; font-size: 12px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: #FFB71B">Listen now</p>
+    <audio controls preload="none" src={ep.audio} style="width: 100%"></audio>
+  </div>
+) : (
+  <a href={ep.links.youtube} aria-label="Watch on YouTube" class="ph-dark" style="display: flex; aspect-ratio: 16 / 9; align-items: center; justify-content: center; position: relative; border-radius: 4px; text-decoration: none; overflow: hidden">
+    {ep.thumb && <img src={ep.thumb} alt="" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; filter: blur(18px) brightness(.55); transform: scale(1.1)">}
+    <span style="position: relative; width: 88px; height: 88px; border-radius: 50%; background: #FFB71B; color: #14231C; display: flex; align-items: center; justify-content: center; box-shadow: 0 10px 30px rgba(0,0,0,.3)"><svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 4.5v15l13-7.5z"></path></svg></span>
+  </a>
+)}
+<div class="listen-bar" style="display: flex; flex-wrap: wrap; align-items: center; gap: 10px; padding: 20px 0 0">
+<a href={ep.links.youtube} class="btn-gold" style="display: inline-flex; align-items: center; gap: 8px; height: 48px; padding: 0 20px; background: #FFB71B; color: #14231C; text-decoration: none; font-weight: 700; font-size: 14px; border-radius: 2px"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 4.5v15l13-7.5z"></path></svg>Watch on YouTube</a>
+<a href={ep.links.spotify} class="btn-line" style="display: inline-flex; align-items: center; height: 48px; padding: 0 18px; border: 1.5px solid rgba(20,35,28,.5); color: #14231C; text-decoration: none; font-weight: 600; font-size: 14px; border-radius: 2px; box-sizing: border-box">Listen on Spotify</a>
+<a href={ep.links.apple} class="btn-line" style="display: inline-flex; align-items: center; height: 48px; padding: 0 18px; border: 1.5px solid rgba(20,35,28,.5); color: #14231C; text-decoration: none; font-weight: 600; font-size: 14px; border-radius: 2px; box-sizing: border-box">Apple Podcasts</a>
+<button type="button" id="share-btn" class="btn-line" style="margin-left: auto; display: inline-flex; align-items: center; gap: 8px; height: 48px; padding: 0 18px; border: 1.5px solid rgba(20,35,28,.5); background: transparent; color: #14231C; font-weight: 600; font-size: 14px; font-family: Poppins, system-ui, sans-serif; border-radius: 2px; cursor: pointer"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12v7a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-7"></path><path d="M16 6l-4-4-4 4"></path><path d="M12 2v13"></path></svg><span>Share</span></button>
+</div>
+</div>
+</section>
+
+<!-- Notes and guest -->
+<section aria-label="Episode details">
+<div class="wrap split" style="max-width: 1080px; margin: 0 auto; padding: 64px 24px 88px; box-sizing: border-box; display: flex; gap: 64px">
+<div style="flex: 2 1 0; min-width: 0">
+<h2 style="margin: 0 0 18px; font-family: Gobold, Impact, 'Arial Narrow', sans-serif; font-size: 30px; font-weight: 700">About this episode</h2>
+{paragraphs.length ? paragraphs.map((p, i) => (
+  <p style={i === 0 ? 'margin: 0 0 16px; font-size: 20px; line-height: 1.6' : 'margin: 0 0 16px; font-size: 16px; line-height: 1.7; color: #3E4F47'}>{p}</p>
+)) : <p style="margin: 0 0 16px; font-size: 20px; line-height: 1.6">{site.showPlaceholders ? '[Episode summary from the podcast feed]' : ''}</p>}
+{ep.chapters?.length > 0 && (
+  <Fragment>
+  <h2 style="margin: 40px 0 8px; font-family: Gobold, Impact, 'Arial Narrow', sans-serif; font-size: 24px; font-weight: 700">In this episode</h2>
+  <ol style="list-style: none; margin: 0; padding: 0; font-size: 15px">
+    {ep.chapters.map((c, i) => (
+      <li style={`display: flex; gap: 20px; padding: 14px 0${i < ep.chapters.length - 1 ? '; border-bottom: 1px solid rgba(20,35,28,.14)' : ''}`}>
+        <a href={ep.youtubeId ? `https://www.youtube.com/watch?v=${ep.youtubeId}&t=${c.seconds}s` : ep.links.youtube} style="font-variant-numeric: tabular-nums; font-weight: 600; min-width: 56px">{c.time}</a><span>{c.title}</span>
+      </li>
+    ))}
+  </ol>
+  </Fragment>
+)}
+</div>
+<aside aria-label="About the guest" style="flex: 1 1 0; min-width: 0; display: flex; flex-direction: column; gap: 28px">
+{ep.guests.length > 0 && (
+<div style="display: flex; flex-direction: column; gap: 10px">
+<p style="margin: 0; font-size: 11px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: #185640">{ep.guests.length > 1 ? 'The Guests' : 'The Guest'}</p>
+{guest?.photo
+  ? <div class="guest-photo" style="aspect-ratio: 4 / 5; position: relative; border-radius: 3px; overflow: hidden; background: #22473A"><img src={guest.photo} alt={guest.name} loading="lazy" style="display: block; width: 100%; height: 100%; object-fit: cover; object-position: center top; filter: grayscale(1)"></div>
+  : ep.thumb && <div style="aspect-ratio: 1 / 1; border-radius: 3px; overflow: hidden; background: #22473A"><img src={ep.thumb} alt="" loading="lazy" style="display: block; width: 100%; height: 100%; object-fit: cover"></div>}
+<p style="margin: 6px 0 0; font-family: Gobold, Impact, 'Arial Narrow', sans-serif; font-weight: 900; font-size: 28px; letter-spacing: .03em; text-transform: uppercase; line-height: 1">{ep.guests.join(' & ')}</p>
+{guest?.role && <p style="margin: 0; font-size: 13px; color: #4A5A52">{guest.role}</p>}
+{guest?.bio && <p style="margin: 4px 0 0; font-size: 14px; line-height: 1.6; color: #3E4F47">{guest.bio}</p>}
+<a href={`/episodes/?guest=${encodeURIComponent(ep.guests[0])}`} style="display: inline-flex; align-items: center; gap: 8px; min-height: 44px; font-weight: 600; font-size: 17px">More with {ep.guests[0]}<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></a>
+</div>
+)}
+{presenter && (
+<a href={`/partners/#${presenter.id}`} style="display: flex; align-items: center; gap: 14px; padding: 16px; border: 1px solid rgba(20,35,28,.18); border-radius: 3px; text-decoration: none; color: #14231C">
+<span style="flex: 0 0 92px; height: 52px; display: flex; align-items: center; justify-content: center"><img src={presenter.logo} alt="" width="92" loading="lazy" style="display: block; width: 92px; height: auto"></span>
+<span style="font-size: 13px; line-height: 1.45"><span style="display: block; font-size: 11px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: #4A5A52">Presented by</span><span style="font-weight: 600">{presenter.name}</span></span>
+</a>
+)}
+</aside>
+</div>
+</section>
+
+{clips.length > 0 && (
+<section aria-labelledby="clips-h" style="background: #EEEAE0">
+<div class="wrap" style="max-width: 1080px; margin: 0 auto; padding: 72px 24px; box-sizing: border-box">
+<div class="sec-head" style="display: flex; align-items: baseline; justify-content: space-between; gap: 16px; margin-bottom: 28px; padding-bottom: 14px; border-bottom: 1px solid rgba(20,35,28,.2)">
+<h2 id="clips-h" style="margin: 0; font-family: Gobold, Impact, 'Arial Narrow', sans-serif; font-size: 32px; font-weight: 700">Clips from this episode</h2>
+</div>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 28px 20px">
+{clips.map((v) => <VideoCard video={v} />)}
+</div>
+</div>
+</section>
+)}
+
+<!-- More episodes -->
+<section aria-labelledby="eps-h">
+<div class="wrap" style="max-width: 1280px; margin: 0 auto; padding: 88px 24px 88px; box-sizing: border-box">
+<div class="sec-head" style="display: flex; align-items: baseline; justify-content: space-between; gap: 16px; margin-bottom: 36px; padding-bottom: 16px; border-bottom: 1px solid rgba(20,35,28,.2)">
+<h2 id="eps-h" style="margin: 0; font-family: Gobold, Impact, 'Arial Narrow', sans-serif; font-size: 40px; font-weight: 700; letter-spacing: -.01em">More Episodes</h2>
+<a href="/episodes/" style="font-weight: 600; font-size: 17px; white-space: nowrap">All episodes</a>
+</div>
+<div class="ep-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 20px">
+{more.map((e) => <EpisodeCard ep={e} />)}
+</div>
+</div>
+</section>
+
+<Join />
+
+<script is:inline>
+(function () {
+  document.querySelectorAll('.yt-facade').forEach(function (b) {
+    b.addEventListener('click', function () {
+      var f = document.createElement('iframe');
+      f.src = 'https://www.youtube-nocookie.com/embed/' + b.dataset.yt + '?autoplay=1&rel=0';
+      f.title = b.getAttribute('aria-label'); f.allow = 'autoplay; encrypted-media; picture-in-picture; fullscreen';
+      f.style.cssText = 'width:100%;aspect-ratio:16/9;border:0;border-radius:4px;display:block';
+      b.replaceWith(f);
+    });
+  });
+  var s = document.getElementById('share-btn');
+  if (s) s.addEventListener('click', function () {
+    var data = { title: document.title, url: location.href };
+    if (navigator.share) { navigator.share(data).catch(function () {}); return; }
+    navigator.clipboard.writeText(location.href).then(function () { s.querySelector('span').textContent = 'Link copied'; setTimeout(function () { s.querySelector('span').textContent = 'Share'; }, 2000); });
+  });
+})();
+</script>
+</Base>

@@ -1,0 +1,15 @@
+---
+import { episodesForGuest, site } from '../lib/content.js';
+const { guest, grain = 'legend-photo', size = 28 } = Astro.props;
+const eps = episodesForGuest(guest.name);
+const href = eps[0]?.href || '/episodes/';
+const listen = eps[0]?.number ? `Listen to Ep. ${eps[0].number}` : eps.length ? 'Listen to the episode' : site.showPlaceholders ? 'Listen to Ep. [##]' : '';
+---
+<a href={href} class="hl" data-category={guest.category} style="display: flex; flex-direction: column; gap: 8px; color: #F4EEDF">
+{guest.photo
+  ? <div class={grain} style="aspect-ratio: 4 / 5; background: #22473A; border-radius: 3px; margin-bottom: 8px; overflow: hidden; position: relative"><img src={guest.photo} alt={`${guest.name}, Iconic Sonics guest`} loading="lazy" width="640" height="800" style="display: block; width: 100%; height: 100%; object-fit: cover; object-position: center top; filter: grayscale(1)"></div>
+  : <div style="aspect-ratio: 4 / 5; background: #22473A; position: relative; border-radius: 3px; margin-bottom: 8px"><span style="position: absolute; left: 12px; bottom: 10px; font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: rgba(244,238,223,.65)">{`[Photo: ${guest.name}]`}</span></div>}
+<span class="legend-name" style={`font-family: Gobold, Impact, 'Arial Narrow', sans-serif; font-weight: 900; font-size: ${size}px; letter-spacing: .03em; text-transform: uppercase; line-height: 1`}>{guest.name}</span>
+<span style="font-size: 13px; color: rgba(244,238,223,.78)">{guest.role}</span>
+{listen && <span style="font-size: 13px; font-weight: 600; color: #FFB71B">{listen}</span>}
+</a>

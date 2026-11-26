@@ -1,0 +1,15 @@
+{
+  "name": "iconic-sonics-site",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "sync": "node scripts/sync.mjs",
+    "dev": "astro dev",
+    "build": "node scripts/sync.mjs && astro build",
+    "preview": "astro preview"
+  },
+  "dependencies": {
+    "astro": "^5.0.0",
+    "fast-xml-parser": "^5.0.0"
+  }
+}

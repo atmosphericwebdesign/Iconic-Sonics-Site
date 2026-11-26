@@ -1,0 +1,13 @@
+---
+const { video } = Astro.props;
+const kind = video?.kind || 'Clip';
+const label = kind === 'Full episode' ? 'Full episode' : kind;
+const href = video?.url || '#';
+const title = video?.title || '[Video title]';
+const runtime = video ? video.runtime : '[0:00]';
+---
+<article data-kind={kind} style="display: flex; flex-direction: column; gap: 10px">
+<a href={href} aria-label={`Play: ${title}`} class="ph-dark" style="display: flex; aspect-ratio: 16 / 9; align-items: center; justify-content: center; position: relative; border-radius: 3px; overflow: hidden">{video?.thumb && <img src={video.thumb} alt="" loading="lazy" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover">}<span style="position: relative; width: 52px; height: 52px; border-radius: 50%; background: rgba(244,238,223,.92); color: #0F3A2B; display: flex; align-items: center; justify-content: center"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 4.5v15l13-7.5z"></path></svg></span>{runtime && <span style="position: absolute; right: 10px; bottom: 10px; background: rgba(15,58,43,.9); color: #F4EEDF; font-size: 12px; font-weight: 600; padding: 3px 7px; border-radius: 3px">{runtime}</span>}</a>
+<p style="margin: 4px 0 0; font-size: 11px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: #185640">{kind}</p>
+<h3 style="margin: 0; font-family: Gobold, Impact, 'Arial Narrow', sans-serif; font-size: 21px; font-weight: 600; line-height: 1.25"><a href={href} class="hl">{title}</a></h3>
+</article>

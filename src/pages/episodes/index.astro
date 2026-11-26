@@ -1,0 +1,92 @@
+---
+import Base from '../../layouts/Base.astro';
+import EpisodeCard from '../../components/EpisodeCard.astro';
+import Join from '../../components/Join.astro';
+import { episodes, guests, topics, ERAS } from '../../lib/content.js';
+import '../../styles/episodes.css';
+const guestOptions = [...new Set(episodes.flatMap((e) => e.guests))].sort();
+const topicOptions = topics;
+---
+<Base title="Episodes" description="Every Iconic Sonics episode, from the glory years to the return. Search by guest, topic or era." current="episodes">
+<!-- Page header -->
+<section aria-labelledby="pg-h">
+<div class="wrap pg-head" style="max-width: 1280px; margin: 0 auto; padding: 64px 24px 32px; box-sizing: border-box">
+<nav aria-label="Breadcrumb" style="font-size: 13px; margin-bottom: 24px; display: flex; gap: 8px; color: #4A5A52"><a href="/">Home</a><span aria-hidden="true">/</span><span aria-current="page">Episodes</span></nav>
+<p style="margin: 0 0 12px; font-size: 12px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: #185640">Podcast archive</p>
+<h1 id="pg-h" class="pg-h1" style="margin: 0 0 14px; font-family: Gobold, Impact, 'Arial Narrow', sans-serif; font-size: 76px; font-weight: 700; line-height: 1.02; color: #0F3A2B">Episodes</h1>
+<p class="pg-intro" style="margin: 0; font-size: 20px; line-height: 1.55; color: #3E4F47; max-width: 640px">Every conversation, from the glory years to the return. Find a guest, a topic or an era.</p>
+</div>
+</section>
+
+<!-- Filters -->
+<section aria-label="Find an episode">
+<div class="wrap pg-body" style="max-width: 1280px; margin: 0 auto; padding: 0 24px 24px; box-sizing: border-box">
+<div class="filter-row" style="display: flex; flex-wrap: wrap; gap: 16px; align-items: flex-end; padding: 20px; background: rgba(110,110,110,.10); border: 1px solid rgba(20,35,28,.10); border-radius: 16px">
+<div style="flex: 2 1 260px; min-width: 0; display: flex; flex-direction: column; gap: 6px"><label for="ep-q" style="font-size: 12px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: #4A5A52">Search</label><input id="ep-q" type="search" placeholder="Guest, topic or title" style="height: 48px; padding: 0 14px; border: 1.5px solid rgba(20,35,28,.3); border-radius: 4px; background: #FFFFFF; font-family: Poppins, system-ui, sans-serif; font-size: 15px; color: #14231C; box-sizing: border-box; width: 100%"></div>
+<div style="flex: 1 1 0; min-width: 160px; display: flex; flex-direction: column; gap: 6px"><label for="ep-guest" style="font-size: 12px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: #4A5A52">Guest</label><select id="ep-guest" class="sel"><option value="">All guests</option>{guestOptions.map((o) => <option value={o}>{o}</option>)}</select></div>
+<div style="flex: 1 1 0; min-width: 160px; display: flex; flex-direction: column; gap: 6px"><label for="ep-topic" style="font-size: 12px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: #4A5A52">Topic</label><select id="ep-topic" class="sel"><option value="">All topics</option>{topicOptions.map((o) => <option value={o}>{o}</option>)}</select></div>
+<div style="flex: 1 1 0; min-width: 160px; display: flex; flex-direction: column; gap: 6px"><label for="ep-era" style="font-size: 12px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: #4A5A52">Era</label><select id="ep-era" class="sel"><option value="">All eras</option>{ERAS.map((o) => <option value={o}>{o}</option>)}</select></div>
+</div>
+<p id="ep-count" role="status" style="margin: 16px 0 0; font-size: 14px; color: #4A5A52">{`Showing all ${episodes.length} episodes, newest first`}</p>
+</div>
+</section>
+
+<!-- Episode list -->
+<section aria-label="All episodes">
+<div class="wrap pg-body" style="max-width: 1280px; margin: 0 auto; padding: 8px 24px 96px; box-sizing: border-box">
+<div class="ep-grid" id="ep-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(360px, 1fr)); gap: 20px">
+{episodes.map((ep) => <EpisodeCard ep={ep} />)}
+</div>
+<div style="display: flex; justify-content: center; margin-top: 40px"><button type="button" id="ep-more" class="btn-line" style="height: 52px; padding: 0 28px; border: 1.5px solid rgba(20,35,28,.45); background: transparent; color: #14231C; font-family: Poppins, system-ui, sans-serif; font-weight: 700; font-size: 15px; border-radius: 999px; cursor: pointer">Load more episodes</button></div>
+<p id="ep-empty" hidden style="margin: 32px 0 0; font-size: 16px; color: #4A5A52">No episodes match those filters.</p>
+</div>
+</section>
+
+<!-- Join -->
+<section id="join" aria-labelledby="join-h" class="ph-gold" style="color: #14231C">
+<div class="wrap split" style="max-width: 1280px; margin: 0 auto; padding: 88px 24px; box-sizing: border-box; display: flex; align-items: center; gap: 56px">
+<div style="flex: 3 1 0; min-width: 0; display: flex; flex-direction: column; gap: 18px">
+<h2 id="join-h" class="join-title" style="margin: 0; font-family: Gobold, Impact, 'Arial Narrow', sans-serif; font-size: 76px; font-weight: 700; line-height: 1.12; color: #0F3A2B">Join the<br class="m-br"> <span style="white-space: nowrap">Iconic Sonics</span> community</h2>
+<p style="margin: 0; font-size: 18px; line-height: 1.6; max-width: 560px">New episodes, event invites and the latest on Sonics basketball in Seattle. One email a week, from the glory years to the return.</p>
+<p style="margin: 4px 0 0; font-size: 14px; display: flex; flex-wrap: wrap; gap: 6px 18px"><span>Or follow the show on</span><a href="#" style="color: #0F3A2B; font-weight: 700">YouTube</a><a href="#" style="color: #0F3A2B; font-weight: 700">Spotify</a><a href="#" style="color: #0F3A2B; font-weight: 700">Apple Podcasts</a></p>
+</div>
+<form style="flex: 2 1 0; min-width: 0; background: #0F3A2B; color: #F4EEDF; padding: 32px; border-radius: 3px; display: flex; flex-direction: column; gap: 14px; box-shadow: 0 20px 50px rgba(15,58,43,.25)">
+<p style="margin: 0; font-family: Gobold, Impact, 'Arial Narrow', sans-serif; font-size: 30px; font-weight: 700; line-height: 1">Sign up</p>
+<label for="join-email" style="font-size: 13px; font-weight: 600">Email address</label>
+<input id="join-email" type="email" autocomplete="email" placeholder="you@example.com" style="width: 100%; min-width: 0; height: 52px; box-sizing: border-box; border: 0; border-radius: 2px; padding: 0 16px; font-size: 16px; font-family: Poppins, system-ui, sans-serif; background: #FAFAFA; color: #14231C">
+<button type="button" class="btn-gold" style="height: 52px; border: 0; border-radius: 2px; background: #FFB71B; color: #14231C; font-weight: 800; font-size: 14px; letter-spacing: .08em; text-transform: uppercase; font-family: Poppins, system-ui, sans-serif; cursor: pointer">Join the community</button>
+<p style="margin: 0; font-size: 13px; color: rgba(244,238,223,.78)">Free. Unsubscribe anytime.</p>
+</form>
+</div>
+</section>
+<Join />
+
+<script is:inline>
+(function () {
+  var q = document.getElementById('ep-q'), g = document.getElementById('ep-guest'), t = document.getElementById('ep-topic'), e = document.getElementById('ep-era');
+  var cards = [].slice.call(document.querySelectorAll('#ep-grid .ep-card')), count = document.getElementById('ep-count'), empty = document.getElementById('ep-empty');
+  var more = document.getElementById('ep-more'), step = window.innerWidth < 760 ? 12 : 24, limit = step;
+  var params = new URLSearchParams(location.search);
+  if (params.get('guest')) g.value = params.get('guest');
+  function run() {
+    var text = q.value.trim().toLowerCase(), n = 0;
+    cards.forEach(function (c) {
+      var ok = (!text || c.dataset.search.indexOf(text) > -1)
+        && (!g.value || c.dataset.guests.split('|').indexOf(g.value) > -1)
+        && (!t.value || c.dataset.topics.split('|').indexOf(t.value) > -1)
+        && (!e.value || c.dataset.era === e.value);
+      if (ok) n++;
+      c.hidden = !ok;
+    });
+    var all = !text && !g.value && !t.value && !e.value;
+    if (all) cards.forEach(function (c, i) { c.hidden = i >= limit; });
+    more.parentNode.hidden = !all || limit >= cards.length;
+    count.textContent = all ? 'Showing all ' + cards.length + ' episodes, newest first' : 'Showing ' + n + ' of ' + cards.length + ' episodes';
+    empty.hidden = n > 0;
+  }
+  more.addEventListener('click', function () { limit += step; run(); });
+  [q, g, t, e].forEach(function (el) { el.addEventListener(el === q ? 'input' : 'change', run); });
+  run();
+})();
+</script>
+</Base>

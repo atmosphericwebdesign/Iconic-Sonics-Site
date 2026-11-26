@@ -1,0 +1,56 @@
+---
+import Base from '../layouts/Base.astro';
+import GuestCard from '../components/GuestCard.astro';
+import Join from '../components/Join.astro';
+import { guests } from '../lib/content.js';
+import '../styles/guests.css';
+const cats = ['All', ...['Players', 'Coaches', 'Executives', 'Media'].filter((c) => guests.some((g) => g.category === c))];
+const ON = 'background: #FFB71B; border-color: #FFB71B; color: #14231C';
+const OFF = 'border-color: rgba(244,238,223,.45); color: #F4EEDF';
+---
+<Base title="Legendary Guests" description="The players, coaches, executives and voices who made Seattle a Sonics city, in their own words." current="guests">
+<!-- Page header -->
+<section aria-labelledby="pg-h">
+<div class="wrap pg-head" style="max-width: 1280px; margin: 0 auto; padding: 64px 24px 32px; box-sizing: border-box">
+<nav aria-label="Breadcrumb" style="font-size: 13px; margin-bottom: 24px; display: flex; gap: 8px; color: #4A5A52"><a href="/">Home</a><span aria-hidden="true">/</span><span aria-current="page">Legendary Guests</span></nav>
+<p style="margin: 0 0 12px; font-size: 12px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: #185640">The guest list</p>
+<h1 id="pg-h" class="pg-h1" style="margin: 0 0 14px; font-family: Gobold, Impact, 'Arial Narrow', sans-serif; font-size: 76px; font-weight: 700; line-height: 1.02; color: #0F3A2B">Legendary Guests</h1>
+<p class="pg-intro" style="margin: 0; font-size: 20px; line-height: 1.55; color: #3E4F47; max-width: 640px">The players, coaches, executives and voices who made Seattle a Sonics city, in their own words.</p>
+</div>
+</section>
+
+<!-- Guest grid -->
+<section aria-label="All guests" style="background: #0F3A2B; color: #F4EEDF">
+<div class="wrap" style="max-width: 1280px; margin: 0 auto; padding: 56px 24px 96px; box-sizing: border-box">
+<div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 36px">
+<nav aria-label="Filter guests" class="chip-row" data-chip-filter="data-category" data-target="#guest-grid > a" style="display: flex; flex-wrap: wrap; gap: 8px">{cats.map((c, i) => <a href="#" class="chip" aria-current={i === 0 ? "true" : undefined} data-value={i === 0 ? "" : c} data-on-style={ON} data-off-style={OFF} style={i === 0 ? ON : OFF}>{c}</a>)}</nav>
+<p id="chip-count" role="status" style="margin: 0; font-size: 14px; color: rgba(244,238,223,.75)">{`${guests.length} guests`}</p>
+</div>
+<div class="guest-grid" id="guest-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 40px 24px">
+{guests.map((g) => <GuestCard guest={g} grain="guest-photo" size={26} />)}</p>
+</div>
+<form style="flex: 2 1 0; min-width: 0; background: #0F3A2B; color: #F4EEDF; padding: 32px; border-radius: 3px; display: flex; flex-direction: column; gap: 14px; box-shadow: 0 20px 50px rgba(15,58,43,.25)">
+<p style="margin: 0; font-family: Gobold, Impact, 'Arial Narrow', sans-serif; font-size: 30px; font-weight: 700; line-height: 1">Sign up</p>
+<label for="join-email" style="font-size: 13px; font-weight: 600">Email address</label>
+<input id="join-email" type="email" autocomplete="email" placeholder="you@example.com" style="width: 100%; min-width: 0; height: 52px; box-sizing: border-box; border: 0; border-radius: 2px; padding: 0 16px; font-size: 16px; font-family: Poppins, system-ui, sans-serif; background: #FAFAFA; color: #14231C">
+<button type="button" class="btn-gold" style="height: 52px; border: 0; border-radius: 2px; background: #FFB71B; color: #14231C; font-weight: 800; font-size: 14px; letter-spacing: .08em; text-transform: uppercase; font-family: Poppins, system-ui, sans-serif; cursor: pointer">Join the community</button>
+<p style="margin: 0; font-size: 13px; color: rgba(244,238,223,.78)">Free. Unsubscribe anytime.</p>
+</form>
+</div>
+</section>
+
+<script is:inline>
+(function () {
+  var nav = document.querySelector('[data-chip-filter]'); if (!nav) return;
+  var attr = nav.getAttribute('data-chip-filter'), items = [].slice.call(document.querySelectorAll(nav.getAttribute('data-target')));
+  var count = document.getElementById('chip-count');
+  nav.addEventListener('click', function (e) {
+    var a = e.target.closest('a'); if (!a) return; e.preventDefault();
+    nav.querySelectorAll('a').forEach(function (x) { var on = x === a; x.classList.toggle('chip-on', on); x.toggleAttribute('aria-current', on); if (x.dataset.onStyle) x.setAttribute('style', on ? x.dataset.onStyle : x.dataset.offStyle); });
+    var v = a.dataset.value, n = 0;
+    items.forEach(function (it) { var ok = !v || it.getAttribute(attr) === v; it.hidden = !ok; if (ok) n++; });
+    if (count) count.textContent = n + (n === 1 ? ' guest' : ' guests');
+  });
+})();
+</script>
+</Base>

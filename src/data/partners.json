@@ -1,0 +1,4 @@
+[
+  { "id": "no-li", "name": "No-Li Brewhouse", "logo": "/assets/noli-logo.png", "logoWidth": 240, "cardLogoWidth": 220, "since": "[Year]", "type": "[Sponsorship type]", "url": "#", "story": "[Sponsorship story, 2 to 4 sentences: how No-Li Brewhouse and Iconic Sonics came together, what they support (episodes, events, the community), and why bringing the Sonics back matters to them.]", "presents": true },
+  { "id": "hunts", "name": "Hunt's Services", "logo": "/assets/hunts-logo.png", "logoWidth": 250, "cardLogoWidth": 200, "since": "[Year]", "type": "[Sponsorship type]", "url": "#", "story": "[Sponsorship story, 2 to 4 sentences: how Hunt's Services and Iconic Sonics came together, what they support (episodes, events, the community), and why bringing the Sonics back matters to them.]" }
+]

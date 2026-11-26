@@ -1,0 +1,30 @@
+{
+  "name": "Iconic Sonics",
+  "url": "https://iconic-sonics-site.vercel.app",
+  "tagline": "Seattle's home for Sonics stories.",
+  "description": "Iconic Sonics is the podcast and media home for Seattle Sonics fans: episodes, videos, legendary guests and original stories, all in service of bringing the Sonics back to Seattle.",
+  "eventBar": {
+    "date": "December 11",
+    "title": "The Iconic Sonics Holiday Gathering",
+    "href": "/#events"
+  },
+  "featuredEpisode": null,
+  "showPlaceholders": true,
+  "web3formsKey": "",
+  "podcast": {
+    "rss": "https://sonicsforever.libsyn.com/rss",
+    "appleId": "1878515479",
+    "spotifyShowId": "3bZhWwmXNdLK4yT29lKNvT",
+    "youtubeHandle": "@IconicSonicsPodcast",
+    "youtubeChannelId": "UCbi0Md9M0rPS3P3bWGMgIiQ"
+  },
+  "links": {
+    "youtube": "https://www.youtube.com/@IconicSonicsPodcast",
+    "spotify": "https://open.spotify.com/show/3bZhWwmXNdLK4yT29lKNvT",
+    "apple": "https://podcasts.apple.com/ca/podcast/iconic-sonics/id1878515479",
+    "instagram": "https://www.instagram.com/iconic_sonics/",
+    "x": "https://x.com/Iconic_sonics",
+    "tiktok": "https://www.tiktok.com/@iconic_sonics"
+  },
+  "partnerEmail": ""
+}

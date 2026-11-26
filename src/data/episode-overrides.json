@@ -1,0 +1,27 @@
+{
+  "_help": "Keyed by episode slug or by #number. thumb = square image in /public/assets (otherwise the YouTube or podcast artwork is used); guests = names matching guests.json (found automatically from the title and description when left out); topics and era drive the archive filters.",
+  "ramona-shelburnes-sonics-return-update-expansion-money-vegas-and-a-28-29-comeback": {
+    "thumb": "/assets/ep-thumb-shelburne.jpg",
+    "thumbPosition": "100% 40%",
+    "era": "The return",
+    "topics": []
+  },
+  "bob-whitsitt-on-re-building-the-seattle-supersonics-nba-expansion-and-managing-star-players": {
+    "thumb": "/assets/ep-whitsitt.jpg",
+    "thumbPosition": "center",
+    "era": "1990s",
+    "topics": []
+  },
+  "jim-mcilvaine-on-shawn-kemp-his-controversial-sonics-contract-and-seattles-nba-future": {
+    "thumb": "/assets/ep-mcilvaine.jpg",
+    "thumbPosition": "center",
+    "era": "1990s",
+    "topics": []
+  },
+  "antonio-davis-and-eldridge-recasner-on-gary-payton-seattle-basketball-and-the-sonics-return": {
+    "thumb": "/assets/ep-recasner-davis.jpg",
+    "thumbPosition": "center",
+    "era": "The return",
+    "topics": []
+  }
+}

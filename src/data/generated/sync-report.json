@@ -1,0 +1,30 @@
+{
+  "ranAt": "2026-11-26T18:18:09.193Z",
+  "sources": {
+    "rss": {
+      "ok": true,
+      "episodes": 111
+    },
+    "apple": {
+      "ok": true,
+      "items": 110,
+      "matched": 110
+    },
+    "spotify": {
+      "ok": false,
+      "error": "SPOTIFY_CLIENT_ID / SPOTIFY_CLIENT_SECRET not set; episodes link to the show page"
+    },
+    "youtube": {
+      "ok": true,
+      "mode": "channel feed (latest 15, add YOUTUBE_API_KEY for the full catalog)",
+      "videos": 15,
+      "fullEpisodesMatched": 13
+    }
+  },
+  "unmatched": {
+    "youtube": [],
+    "spotify": [],
+    "apple": []
+  },
+  "notes": []
+}
