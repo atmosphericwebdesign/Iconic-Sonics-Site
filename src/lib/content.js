@@ -65,6 +65,7 @@ export const episodes = rawEpisodes
     ep.summary = e.summary || parsed.paragraphs[0] || '';
     ep.thumb = o.thumb || (e.youtubeId ? `https://i.ytimg.com/vi/${e.youtubeId}/mqdefault.jpg` : e.image) || null;
     ep.href = `/episodes/${ep.slug}/`;
+    ep.displayTitle = o.shortTitle || ep.title;
     ep.durationText = durationLabel(ep.duration);
     ep.guestText = ep.guests.length ? `With ${ep.guests.join(' and ')}` : '';
     ep.numberText = ep.number ? `Ep. ${ep.number}` : '';

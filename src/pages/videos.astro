@@ -31,6 +31,7 @@ const FEATURED_PLACEHOLDER = site.showPlaceholders ? '<!-- Featured video -->\n<
 <div id="vid-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 36px 24px">
 {gridVideos.map((v) => <VideoCard video={v} />)}
 </div>
+<div style="display: flex; justify-content: center; margin-top: 40px"><button type="button" id="vid-more" class="btn-line" style="height: 52px; padding: 0 28px; border: 1.5px solid rgba(20,35,28,.45); background: transparent; color: #14231C; font-family: Poppins, system-ui, sans-serif; font-weight: 700; font-size: 15px; border-radius: 999px; cursor: pointer">Load more videos</button></div>
 
 </div>
 </section>
@@ -49,6 +50,25 @@ const FEATURED_PLACEHOLDER = site.showPlaceholders ? '<!-- Featured video -->\n<
     items.forEach(function (it) { var ok = !v || it.getAttribute(attr) === v; it.hidden = !ok; if (ok) n++; });
     
   });
+})();
+</script>
+<script is:inline>
+(function () {
+  var grid = document.getElementById('vid-grid'), more = document.getElementById('vid-more'), nav = document.querySelector('[data-chip-filter]');
+  if (!grid || !more) return;
+  var step = window.innerWidth < 760 ? 8 : 16, limit = step, kind = '';
+  function run() {
+    var shown = 0;
+    [].slice.call(grid.children).forEach(function (a) {
+      var ok = !kind || a.getAttribute('data-kind') === kind;
+      a.hidden = !ok || shown >= limit; if (ok && !a.hidden) shown++;
+    });
+    var total = [].slice.call(grid.children).filter(function (a) { return !kind || a.getAttribute('data-kind') === kind; }).length;
+    more.parentNode.hidden = shown >= total;
+  }
+  more.addEventListener('click', function () { limit += step; run(); });
+  if (nav) nav.addEventListener('click', function (e) { var a = e.target.closest('a'); if (!a) return; kind = a.dataset.value || ''; limit = step; setTimeout(run, 0); });
+  run();
 })();
 </script>
 </Base>

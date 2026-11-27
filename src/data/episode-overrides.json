@@ -1,6 +1,7 @@
 {
-  "_help": "Keyed by episode slug or by #number. thumb = square image in /public/assets (otherwise the YouTube or podcast artwork is used); guests = names matching guests.json (found automatically from the title and description when left out); topics and era drive the archive filters.",
+  "_help": "Keyed by episode slug or by #number. shortTitle = a shorter headline for the homepage hero; thumb = square image in /public/assets (otherwise the YouTube or podcast artwork is used); guests = names matching guests.json (found automatically from the title and description when left out); topics and era drive the archive filters.",
   "ramona-shelburnes-sonics-return-update-expansion-money-vegas-and-a-28-29-comeback": {
+    "shortTitle": "How Close Are the Sonics to Coming Back?",
     "thumb": "/assets/ep-thumb-shelburne.jpg",
     "thumbPosition": "100% 40%",
     "era": "The return",
