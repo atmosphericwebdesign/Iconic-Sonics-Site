@@ -64,7 +64,8 @@ export const episodes = rawEpisodes
     ep.summaryParagraphs = parsed.paragraphs;
     ep.summary = e.summary || parsed.paragraphs[0] || '';
     ep.thumb = o.thumb || (e.youtubeId ? `https://i.ytimg.com/vi/${e.youtubeId}/mqdefault.jpg` : e.image) || null;
-    ep.href = `/episodes/${ep.slug}/`;
+    // No episode pages: clicking an episode goes straight to watching or listening.
+    ep.href = ep.youtube || ep.apple || ep.audio || site.links.youtube;
     ep.displayTitle = o.shortTitle || ep.title;
     ep.durationText = durationLabel(ep.duration);
     ep.guestText = ep.guests.length ? `With ${ep.guests.join(' and ')}` : '';
