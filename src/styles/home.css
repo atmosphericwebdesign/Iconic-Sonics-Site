@@ -35,6 +35,8 @@ input:focus,button:focus-visible,a:focus-visible{outline:3px solid #FFB71B;outli
 .split > *{flex-basis:auto!important;width:100%;box-sizing:border-box}
 }
 @container (max-width: 760px){
+.partner-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:10px!important}
+.partner-grid > a{height:104px!important}
 .evbar{flex-wrap:nowrap!important;justify-content:space-between!important;text-align:left!important;gap:10px!important;padding:10px 16px!important}
 .evbar-title{order:1;font-size:min(13px,3.4cqw);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}
 .evbar-date{order:2;white-space:nowrap;flex-shrink:0}

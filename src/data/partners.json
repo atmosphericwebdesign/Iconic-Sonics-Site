@@ -1,4 +1,91 @@
 [
-  { "id": "no-li", "name": "No-Li Brewhouse", "logo": "/assets/noli-logo.png", "logoWidth": 240, "cardLogoWidth": 220, "since": "[Year]", "type": "[Sponsorship type]", "url": "#", "story": "[Sponsorship story, 2 to 4 sentences: how No-Li Brewhouse and Iconic Sonics came together, what they support (episodes, events, the community), and why bringing the Sonics back matters to them.]", "presents": true },
-  { "id": "hunts", "name": "Hunt's Services", "logo": "/assets/hunts-logo.png", "logoWidth": 250, "cardLogoWidth": 200, "since": "[Year]", "type": "[Sponsorship type]", "url": "#", "story": "[Sponsorship story, 2 to 4 sentences: how Hunt's Services and Iconic Sonics came together, what they support (episodes, events, the community), and why bringing the Sonics back matters to them.]" }
+  {
+    "id": "no-li",
+    "name": "No-Li Brewhouse",
+    "logo": "/assets/noli-logo.png",
+    "logoWidth": 240,
+    "cardLogoWidth": 220,
+    "since": "[Year]",
+    "type": "[Sponsorship type]",
+    "url": "#",
+    "story": "[Sponsorship story, 2 to 4 sentences: how No-Li Brewhouse and Iconic Sonics came together, what they support (episodes, events, the community), and why bringing the Sonics back matters to them.]",
+    "presents": true
+  },
+  {
+    "id": "hunts",
+    "name": "Hunt's Services",
+    "logo": "/assets/hunts-logo.png",
+    "logoWidth": 250,
+    "cardLogoWidth": 200,
+    "since": "[Year]",
+    "type": "[Sponsorship type]",
+    "url": "#",
+    "story": "[Sponsorship story, 2 to 4 sentences: how Hunt's Services and Iconic Sonics came together, what they support (episodes, events, the community), and why bringing the Sonics back matters to them.]"
+  },
+  {
+    "id": "edgewater",
+    "name": "The Edgewater Hotel",
+    "logo": "/assets/edgewater-logo.png",
+    "logoWidth": 260,
+    "cardLogoWidth": 190,
+    "since": "[Year]",
+    "type": "[Sponsorship type]",
+    "url": "#",
+    "story": "[Sponsorship story, 2 to 4 sentences: how The Edgewater Hotel and Iconic Sonics came together, what they support (episodes, events, the community), and why bringing the Sonics back matters to them.]"
+  },
+  {
+    "id": "swinomish",
+    "name": "Swinomish Casino & Lodge",
+    "logo": "/assets/swinomish-logo.png",
+    "logoWidth": 270,
+    "cardLogoWidth": 200,
+    "since": "[Year]",
+    "type": "[Sponsorship type]",
+    "url": "#",
+    "story": "[Sponsorship story, 2 to 4 sentences: how Swinomish Casino & Lodge and Iconic Sonics came together, what they support (episodes, events, the community), and why bringing the Sonics back matters to them.]"
+  },
+  {
+    "id": "rise-above",
+    "name": "Rise Above",
+    "logo": "/assets/rise-above-logo.png",
+    "logoWidth": 270,
+    "cardLogoWidth": 200,
+    "since": "[Year]",
+    "type": "[Sponsorship type]",
+    "url": "#",
+    "story": "[Sponsorship story, 2 to 4 sentences: how Rise Above and Iconic Sonics came together, what they support (episodes, events, the community), and why bringing the Sonics back matters to them.]"
+  },
+  {
+    "id": "everett-3on3",
+    "name": "Everett 3on3",
+    "logo": "/assets/everett-3on3-logo.png",
+    "logoWidth": 150,
+    "cardLogoWidth": 90,
+    "since": "[Year]",
+    "type": "[Sponsorship type]",
+    "url": "#",
+    "story": "[Sponsorship story, 2 to 4 sentences: how Everett 3on3 and Iconic Sonics came together, what they support (episodes, events, the community), and why bringing the Sonics back matters to them.]"
+  },
+  {
+    "id": "hall-group",
+    "name": "Hall Group",
+    "logo": "/assets/hall-logo.png",
+    "logoWidth": 160,
+    "cardLogoWidth": 90,
+    "since": "[Year]",
+    "type": "[Sponsorship type]",
+    "url": "#",
+    "story": "[Sponsorship story, 2 to 4 sentences: how Hall Group and Iconic Sonics came together, what they support (episodes, events, the community), and why bringing the Sonics back matters to them.]"
+  },
+  {
+    "id": "epic-seats",
+    "name": "Epic Seats",
+    "logo": null,
+    "logoWidth": 280,
+    "cardLogoWidth": 210,
+    "since": "[Year]",
+    "type": "[Sponsorship type]",
+    "url": "#",
+    "story": "[Sponsorship story, 2 to 4 sentences: how Epic Seats and Iconic Sonics came together, what they support (episodes, events, the community), and why bringing the Sonics back matters to them.]"
+  }
 ]
