@@ -80,9 +80,9 @@
   {
     "id": "epic-seats",
     "name": "Epic Seats",
-    "logo": null,
-    "logoWidth": 280,
-    "cardLogoWidth": 210,
+    "logo": "/assets/epic-seats-logo.png",
+    "logoWidth": 220,
+    "cardLogoWidth": 140,
     "since": "[Year]",
     "type": "[Sponsorship type]",
     "url": "#",
