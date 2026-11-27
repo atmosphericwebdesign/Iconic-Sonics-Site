@@ -2,9 +2,13 @@
 @font-face{font-family:'Gobold';src:url(/assets/fonts/Gobold-Bold.woff2) format('woff2');font-weight:100 900;font-style:normal;font-display:swap}
 @font-face{font-family:'Gobold';src:url(/assets/fonts/Gobold-BoldItalic.woff2) format('woff2');font-weight:100 900;font-style:italic;font-display:swap}
 body{margin:0}
-a{color:#185640}a:hover{color:#0F3A2B}
+a{color:#185640}
 .hl{color:inherit;text-decoration:none}
-.hl:hover{text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:4px}
+.hl{transition:color .15s}
+a:not([class*="btn"]):not(.pill):not(.chip):not([style*="background"]){transition:color .15s}
+a:not([class*="btn"]):not(.pill):not(.chip):not([style*="background"]):hover{color:#FFB71B!important}
+a[style*="color: #FFB71B"]:not([class*="btn"]):not(.pill):not(.chip):not([style*="background"]):hover{color:#F4EEDF!important}
+.ph-gold a:not([class*="btn"]):not(.pill):not(.chip):not([style*="background"]):hover{color:#FFFFFF!important}
 .hero-title a:hover{color:#FFB71B}
 .hero-presenter{transition:opacity .2s}.hero-presenter:hover{opacity:.8}
 .ph{background-color:#E6E1D6}
@@ -14,9 +18,9 @@ a{color:#185640}a:hover{color:#0F3A2B}
 .hero-art{background:#14231C url(/assets/hero-studio.webp) center 95%/118% auto no-repeat}
 @container (min-width: 1500px){.hero-art{background-size:cover;background-position:center 62%}}
 .events-photo{background:#185640 url(/assets/greenseattle-web.webp) center 75%/cover no-repeat}
-.btn-gold:hover{background:#FFC94D}
-.btn-line:hover{background:#14231C;color:#F4EEDF;border-color:#14231C}
-.btn-line-light:hover{background:#F7F4EC;color:#0F3A2B}
+.btn-gold:hover{background:#FFC94D!important}
+.btn-line:hover{background:#14231C!important;color:#F4EEDF!important;border-color:#14231C!important}
+.btn-line-light:hover{background:#F7F4EC!important;color:#0F3A2B!important}
 #legends .btn-line-light{height:58px!important;padding:0 32px!important;font-size:17px!important}
 #legends .btn-line-light:hover{background:#FFB71B;color:#14231C!important;border-color:#FFB71B!important}
 .pill:hover{border-color:#FFB71B;color:#FFB71B}

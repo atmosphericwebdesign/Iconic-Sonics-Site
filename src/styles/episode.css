@@ -1,16 +1,20 @@
 @font-face{font-family:'Gobold';src:url(/assets/fonts/Gobold-Bold.woff2) format('woff2');font-weight:100 900;font-style:normal;font-display:swap}
 @font-face{font-family:'Gobold';src:url(/assets/fonts/Gobold-BoldItalic.woff2) format('woff2');font-weight:100 900;font-style:italic;font-display:swap}
 body{margin:0}
-a{color:#185640}a:hover{color:#0F3A2B}
+a{color:#185640}
 .hl{color:inherit;text-decoration:none}
-.hl:hover{text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:4px}
+.hl{transition:color .15s}
+a:not([class*="btn"]):not(.pill):not(.chip):not([style*="background"]){transition:color .15s}
+a:not([class*="btn"]):not(.pill):not(.chip):not([style*="background"]):hover{color:#FFB71B!important}
+a[style*="color: #FFB71B"]:not([class*="btn"]):not(.pill):not(.chip):not([style*="background"]):hover{color:#F4EEDF!important}
+.ph-gold a:not([class*="btn"]):not(.pill):not(.chip):not([style*="background"]):hover{color:#FFFFFF!important}
 .ph{background-color:#E6E1D6}
 .ph-dark{background-color:#22473A}
 .ph-gold{background-color:#FFB71B;background-image:radial-gradient(rgba(24,86,64,.20) 1px,transparent 1.4px);background-size:7px 7px}
 .hero-photo{background:#185640 url(/assets/greenseattle-web.webp) center 27%/cover no-repeat}
-.btn-gold:hover{background:#FFC94D}
-.btn-line:hover{background:#14231C;color:#F4EEDF;border-color:#14231C}
-.btn-line-light:hover{background:#F7F4EC;color:#0F3A2B}
+.btn-gold:hover{background:#FFC94D!important}
+.btn-line:hover{background:#14231C!important;color:#F4EEDF!important;border-color:#14231C!important}
+.btn-line-light:hover{background:#F7F4EC!important;color:#0F3A2B!important}
 .pill:hover{border-color:#FFB71B;color:#FFB71B}
 input:focus,button:focus-visible,a:focus-visible{outline:3px solid #FFB71B;outline-offset:2px}
 .site{container-type:inline-size}
