@@ -6,6 +6,7 @@ import VideoCard from '../components/VideoCard.astro';
 import Join from '../components/Join.astro';
 import { site, featured, episodes, guests, videos, partners } from '../lib/content.js';
 import '../styles/home.css';
+const presenter = partners.find((p) => p.presents);
 const heroMeta = ['Iconic Sonics', featured.numberText, featured.durationText].filter(Boolean).join(' · ');
 const moreEpisodes = episodes.filter((e) => e.slug !== featured.slug).slice(0, 3);
 const homeGuests = guests.filter((g) => g.featured).slice(0, 4);
@@ -36,6 +37,12 @@ const jsonLd = { '@type': 'PodcastSeries', name: 'Iconic Sonics', url: site.url,
 </div>
 </div>
 </div>
+{presenter && (
+<a href={`/partners/#${presenter.id}`} class="hero-presenter" aria-label={`Presented by ${presenter.name}`} style="position: absolute; z-index: 2; right: max(56px, calc((100% - 1392px) / 2 + 56px)); bottom: 44px; display: flex; flex-direction: column; align-items: flex-end; gap: 8px; text-decoration: none; color: rgba(247,244,236,.78)">
+<span style="font-size: 11px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase">Presented by</span>
+<img src="/assets/noli-logo-light.png" alt={presenter.name} width="150" height="41" style="display: block; width: 150px; height: auto">
+</a>
+)}
 </div>
 </section>
 
